@@ -125,7 +125,7 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="message">Message: </label>
-                            <textarea rows="5" class="form-control" placeholder="Message" id="message" name="message" required data-validation-required-message="Please enter a message."></textarea>
+                            <textarea rows="5" type="text" class="form-control" placeholder="Message" id="message" name="message" required data-validation-required-message="Please enter a message."></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -143,10 +143,17 @@
 
   <!-- Customise the Thankyou Message People See when they submit the form: -->
   <div style="display:none;" id="thankyou_message" class='alert alert-success'>
-    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times
     </button>
-    <h2><em>Thanks</em> for contacting us!
-      We will get back to you soon!</h2>
+    <h2><em>Thanks</em> for contacting me!</h2>
+    <h2> I will get back to you soon.</h2>
+  </div>
+
+  <!-- Customise the Error Message People See when they submit the form: -->
+  <div style="display:none;" id="error_message" class='alert alert-danger'>
+    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times
+    </button>
+    <p><strong> Email is invalid </strong> </p>
   </div>
 
   <!-- Footer -->
@@ -198,8 +205,8 @@
   <script src="js/clean-blog.min.js"></script>
 
   <!-- Submit the Form to Google Using "AJAX" -->
-  <script data-cfasync="false" type="text/javascript"
-  src="js/form-submission-handler.js"></script> 
+  <script type="text/javascript"
+  src="js/form-submission-handler.js"></script>
 <!-- END -->
 
 </body>
