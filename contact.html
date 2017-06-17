@@ -144,7 +144,7 @@
 
                     <!-- Customise the Error Message People See when they submit the form: -->
                     <div style="display:none;" id="error_message" class='alert alert-danger'>
-                      <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times
+                      <button type='button' class='close' data-dismiss='alert' aria-hidden='true' onclick="pageReload()">&times
                       </button>
                       <p><strong> Email is invalid </strong> </p>
                     </div>
@@ -212,6 +212,13 @@
   <!-- Submit the Form to Google Using "AJAX" -->
   <script type="text/javascript"
   src="js/form-submission-handler.js"></script>
+
+  <!-- Page Reload Script -->
+  <script type="text/javascript">
+    function pageReload() {
+      location.reload();
+    }
+  </script>
 <!-- END -->
 
 </body>
