@@ -1,4 +1,0 @@
-#0116062017 : The Contact Page redirects after successful form submission.
-              No Success banner is displayed.
-#0217062017 : The Contact Page doesn't send mail or respond when it is pressed
-              twice.
