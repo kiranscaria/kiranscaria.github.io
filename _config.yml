@@ -25,10 +25,15 @@ linkedin_username: kiran-scaria-689053166
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
+kramdown:
+   input: GFM #Github Flavored Markdown
+   hard_wrap: false  
+   syntax_highlighter: rouge
 theme: jekyll-theme-clean-blog
 plugins:
   - jekyll-feed
-highlighter: rouge
+
 
 
 # Exclude from processing.
