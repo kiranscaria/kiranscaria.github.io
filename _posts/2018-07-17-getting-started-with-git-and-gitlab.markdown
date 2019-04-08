@@ -11,6 +11,7 @@ categories: tutorials
 
 # Getting Started with Version Control, Git and Gitlab – Part I
 
+
 In this three-part series, we will be talking about `version control` a one of the most popular version control systems available `git`, and an open-source web-based Git-repository manager called `Gitlab`. In each part, we will look into one of these topics. Here, we will talk about Version Control. 
 
 *Version Control is one of the must-have tools for every software developer and data scientist.* Its importance is increasing day by day. So without further ado, let’s get started with version control.
