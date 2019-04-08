@@ -30,7 +30,7 @@ kramdown:
    input: GFM #Github Flavored Markdown
    hard_wrap: false  
    syntax_highlighter: rouge
-theme: BlackrockDigital/startbootstrap-theme-clean-blog
+theme: BlackrockDigital/startbootstrap-clean-blog-jekyll
 plugins:
   - jekyll-feed
 
