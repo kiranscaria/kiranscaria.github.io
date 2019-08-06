@@ -2,7 +2,7 @@
 layout: page
 title: About Me 
 description: This is who I am
-background: './assets/images/about-bg.jpg'
+background: './assets/images/bg-about.jpg'
 ---
 
 
