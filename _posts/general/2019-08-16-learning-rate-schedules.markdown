@@ -16,7 +16,7 @@ Schedules define how the learning rate changes over time and are typically speci
 - Schedules change the global learning rate for the optimizer, rather than parameter-wise learning rates.
 - Schedules don't take feedback from the training process and are specified beforehand.
 
-![Gradient Descent on a Loss Function](./assets/images/post-learning-rate-schedules_small.jpg "Gradient Descent")
+![Gradient Descent on a Loss Function](https://live.staticflickr.com/65535/48772984716_692d60ce74_o.jpg "Gradient Descent")
 
 # Types of Schedules
 
