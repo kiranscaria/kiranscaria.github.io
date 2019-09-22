@@ -4,7 +4,7 @@ title: Learning rate Schedules
 subtitle: For faster and better convergence.
 date: "2019-08-16 00:00:00"
 author: Kiran Scaria
-background: ''
+background: '/assets/images/post-learning-rate-schedules-bg.jpg'
 categories: general
 ---
 
@@ -15,6 +15,8 @@ Finding a decent learning rate for a neural network is like fishing. The selecti
 Schedules define how the learning rate changes over time and are typically specified for each epoch or iteration (i.e batch) of training. The main benefits of learning rate schedules are it converges faster with higher accuracy. They differ from adaptive methods (such as AdaDelta and Adam) because :<sup>[2]</sup>
 - Schedules change the global learning rate for the optimizer, rather than parameter-wise learning rates.
 - Schedules don't take feedback from the training process and are specified beforehand.
+
+![Gradient Descent on a Loss Function](https://camo.githubusercontent.com/80d6380443dd60cdb1bff9a81c5ffc8b9458e6a0/68747470733a2f2f63646e2d696d616765732d312e6d656469756d2e636f6d2f6d61782f313630302f312a6639613136324768704d62695456544175615f6c4c512e706e67)
 
 # Types of Schedules
 
@@ -135,3 +137,8 @@ By 'quantity', I mean the 'way of value-change' in the learning-rate. It could h
 4. [LR_Scheduler-PyTorch Documentation](https://pytorch.org/docs/stable/_modules/torch/optim/lr_scheduler.html)
 5. [Learning Rate Scheduling - Deep Learning Wizard](https://www.deeplearningwizard.com/deep_learning/boosting_models_pytorch/lr_scheduling/)
 6. [Polynomial Schedule - Learning Rate Schedules - mxnet documentation](https://mxnet.incubator.apache.org/versions/master/tutorials/gluon/learning_rate_schedules.html)
+
+## Credits
+
+- Title Photo: Photo by [Simon Fitall](https://unsplash.com/@simonfitall?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+- 
