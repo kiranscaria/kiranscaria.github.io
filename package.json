@@ -29,7 +29,7 @@
     "bootstrap": "4.3.1",
     "font-awesome": "4.7.0",
     "jquery": "3.4.1",
-    "set-value": "^3.0.1",
+    "set-value": "^2.0.1",
     "startbootstrap-clean-blog": "5.0.7"
   },
   "devDependencies": {
