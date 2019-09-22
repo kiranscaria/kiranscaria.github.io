@@ -16,7 +16,8 @@ Schedules define how the learning rate changes over time and are typically speci
 - Schedules change the global learning rate for the optimizer, rather than parameter-wise learning rates.
 - Schedules don't take feedback from the training process and are specified beforehand.
 
-![Gradient Descent on a Loss Function](https://camo.githubusercontent.com/80d6380443dd60cdb1bff9a81c5ffc8b9458e6a0/68747470733a2f2f63646e2d696d616765732d312e6d656469756d2e636f6d2f6d61782f313630302f312a6639613136324768704d62695456544175615f6c4c512e706e67)
+
+<img alt="Gradient Descent on a Loss Function" src="https://camo.githubusercontent.com/80d6380443dd60cdb1bff9a81c5ffc8b9458e6a0/68747470733a2f2f63646e2d696d616765732d312e6d656469756d2e636f6d2f6d61782f313630302f312a6639613136324768704d62695456544175615f6c4c512e706e67" width=800/>
 
 # Types of Schedules
 
