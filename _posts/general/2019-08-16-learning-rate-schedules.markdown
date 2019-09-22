@@ -115,8 +115,6 @@ class LogAnnealingLR(_LRScheduler):
                 for base_lr in self.base_lrs]
 ```
 
-# Performance Comparison
-Now that we have talked much about many different schedules, let us look at the performance: 
 
 # Understanding Scheduling
 A better way to understand the scheduling methods is by dividing them based on these two criteria:
@@ -127,6 +125,7 @@ By 'frequency', I mean the intervals in which the learning rate changes. From al
 ##### 2. Quantity (How much does it get changed?)
 
 By 'quantity', I mean the 'way of value-change' in the learning-rate. It could happen exponentially, like in step-wise decay. It could be based on some function, like cosine-annealing decay. It is not compulsory that the change in learning rate has only to move downwards(decay), we have also seen some cyclic methods which usually out-perform these uni-directional decay schedules. 
+
 
 
 ## References
