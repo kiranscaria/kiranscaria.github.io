@@ -15,7 +15,7 @@ google_analytics:   UA-145160640-1 # out your google-analytics code
 
 # Build settings
 markdown:           kramdown
-highlighter:        rogue
+highlighter:        rouge
 kramdown:
   input: GFM # Github Flavored Markdown
   hard-wrap: false
