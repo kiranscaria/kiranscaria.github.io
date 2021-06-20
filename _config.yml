@@ -1,22 +1,34 @@
-title:              Clean Blog
-email:              your-email@example.com
-description:        A Blog Theme by Start Bootstrap
-author:             Start Bootstrap
-baseurl:            "/startbootstrap-clean-blog-jekyll"
-url:                "https://startbootstrap.github.io"
+title:              My Blog
+email:              kiranscaria@outlook.com
+description:        The one stop for all things I want to share.
+author:             Kiran Scaria
+baseurl:            ""
+url:                "https://kiranscaria.github.io"
 
 # Social Profiles
-twitter_username:   SBootstrap
-github_username:    StartBootstrap
-facebook_username:  StartBootstrap
-instagram_username:  
-linkedin_username:
+twitter_username:   kiranscaria
+github_username:    kiranscaria
+linkedin_username:  kiran-scaria-689053166
 
 # Add your google-analytics ID here to activate google analytics
-google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
+google_analytics:   UA-145160640-1 # out your google-analytics code
 
 # Build settings
 markdown:           kramdown
+highlighter:        rogue
+kramdown:
+  input: GFM # Github Flavored Markdown
+  hard-wrap: false
+  syntax_highlighter: rouge
+  #  syntax_highlighter_opts:
+  # default_lang: html
+  # css_class: 'highlight'
+  # span:
+  #   line_numbers: false
+  # block:
+  #   line_numbers: true
+  #   start_line: 1
+permalink: /:title
 paginate:           5
 paginate_path:      "/posts/page:num/"
 plugins:

@@ -1,0 +1,169 @@
+I"P8<p>The <strong>learning rate</strong> or <em>step size</em> in machine learning is a hyperparameter which determines to what extent newly acquired information overrides old information.<sup>[1]</sup> It is the most important hyper-parameter to tune for training deep neural networks. The learning rate is crucial because it controls both the speed of convergence and the ultimate performance of the network. We select learning rate mostly by trial and error, or by virtue of previous experience or some methods like LR finder. A too high learning rate will make the learning jump over minima but a too low learning rate will either take too long to converge or get stuck in undesirable local minima.</p>
+
+<p>Finding a decent learning rate for a neural network is like fishing. The selection of learning rate is one of those things that makes deep learning look like magic. One of the simplest learning rate strategies is to have a fixed learning rate throughout the training process.<sup>[2]</sup> During earlier iterations, faster learning rates lead to faster convergence while during later epochs, slower learning rate produces better accuracy. Changing the learning rate over time can overcome this tradeoff.</p>
+
+<p>Schedules define how the learning rate changes over time and are typically specified for each epoch or iteration (i.e batch) of training. The main benefits of learning rate schedules are it converges faster with higher accuracy. They differ from adaptive methods (such as AdaDelta and Adam) because :<sup>[2]</sup></p>
+<ul>
+  <li>Schedules change the global learning rate for the optimizer, rather than parameter-wise learning rates.</li>
+  <li>Schedules don’t take feedback from the training process and are specified beforehand.</li>
+</ul>
+
+<p><img src="https://live.staticflickr.com/65535/48772984716_692d60ce74_o.jpg" alt="Gradient Descent on a Loss Function" title="Gradient Descent" /></p>
+
+<h1 id="types-of-schedules">Types of Schedules</h1>
+
+<p>The theory of stochastic approximation gives us many types of schedules. But, these are not the ones that are usually used in contemporary deep learning models and frameworks. The theoretical basis of why these schedules work well is an active area of research.[See. 3] Here, we will be looking closely at schedules that are prominently used ones. Here, we will look at most common of these schedules:</p>
+
+<ol>
+  <li><strong>Step-wise Decay</strong></li>
+  <li><strong>Polynomial Decay</strong></li>
+  <li><strong>Exponential Schedule</strong></li>
+  <li><strong>Reduce on Loss Plateau Decay</strong></li>
+  <li><strong>Cosine Annealing</strong></li>
+  <li><strong>Custom Schedules</strong></li>
+</ol>
+
+<h2 id="1-step-wise-decay">1. Step-wise Decay</h2>
+<p>In step-wise decay, the learning-rate is decayed after a fixed number of steps(intervals) by a fixed factor. This fixed factor is called decay-factor, usually represented by <strong><em>\(\gamma\) (gamma)</em></strong>.</p>
+<ul>
+  <li>After every \(k\) epochs:   \(\eta_t = \eta_{t-1}\gamma\)</li>
+  <li>Learning rate at \(n^{th}\) epoch:   \(\eta_n = \eta_{n=1}\gamma^{\lceil \frac{n}{k}  \rceil - 1} \;\; \forall \: n\ge1\)</li>
+</ul>
+
+<p>where, \(\eta_{n}\) is the learning rate \(n^{th}\) epoch.
+       \(\gamma\) is the decay-rate.
+       \(k\) is the step-size.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Tips</code></strong><sup>[5]</sup></p>
+<ul>
+  <li>You would want to decay your LR gradually when you’re training more epochs.
+    <ul>
+      <li>Converge too fast, to a crappy loss/accuracy, if you decay rapidly</li>
+    </ul>
+  </li>
+  <li>To decay slower
+    <ul>
+      <li>Larger \(\gamma\)</li>
+      <li>Larger interval of decay</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="2-polynomial-decay">2. Polynomial Decay</h2>
+<p>Stepwise schedules and the discontinuities they introduce may sometime lead to instability in the optimization, so in some cases smoother schedules are preferred<sup>[6]</sup>. The learning-rate is decayed after every epoch based on a polynomial function. Polynomial Decay provides a smoother decay using a polynomial function and reaches a learning rate of 0 after <strong>max_update</strong> iterations.<sup>[6]</sup></p>
+
+<p>The two important quantities in polynomial decay are:-</p>
+<ol>
+  <li><em>max_update</em>: number of iterations to perform before the learning rate is taken to \(0\).</li>
+  <li><em>power</em>: the degree of the polynomial function</li>
+</ol>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Tips</code></strong></p>
+<ul>
+  <li>Smaller values of <em>power</em> produce slower decay and large values of learning rate for longer periods.</li>
+  <li>For longer training, <em>last_epoch</em> can be increased.</li>
+</ul>
+
+<h2 id="3-exponential-decay">3. Exponential Decay</h2>
+<p>Like the polynomial decay given above, exponential decay gives a smoother decay, solving the instability issues in step-wise scheduling. But here, the learning-rate is decayed after every epoch based on an exponential function.</p>
+
+<p>The important parameters in exponential decay are:</p>
+<ul>
+  <li><em>last_epoch</em>: The index of last epoch</li>
+  <li><em>\(\gamma \; (gamma) \; (0,1]\)</em>: multiplicative factor of learning rate decay</li>
+</ul>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Tips</code></strong></p>
+<ul>
+  <li>Larger \(\gamma\)
+    <ul>
+      <li>Slower convergence</li>
+      <li>Better loss/accuracy</li>
+    </ul>
+  </li>
+  <li>Smaller \(\gamma\)
+    <ul>
+      <li>Faster convergence</li>
+      <li>Worse loss/accuracy</li>
+    </ul>
+  </li>
+  <li>For longer training period, <em>last_epoch</em> can be increased.</li>
+</ul>
+
+<h2 id="4-reduce-on-loss-plateau-decay">4. Reduce on Loss Plateau Decay</h2>
+<p>All the above decay methods like step-wise, polynomial, exponential reduce the learning-rate according to a pre-defined rule. It may change after a few steps or with every step, but the change is imminent. Consider a situation where a learning-rate value is performing well, then decaying it prematurely may not be a wise idea. Similarly continuing with a stale learning-rate value waiting for the decay step is also not helpful. All these scheduling methods do not take into consideration the position of the loss function at the moment.</p>
+
+<p>So, a better idea may be to decrease the learning-rate only when the loss plateaus. This is exactly what we do in ‘Reduce on Loss Plateau Decay’. The decaying action occurs after no improvement in loss value is found. The plateau condition is checked by a fixed value called <strong><em>patience</em></strong>. Patience determines the number of epochs to wait before changing the learning-rate. For example, if <code class="language-plaintext highlighter-rouge">patience = 2</code>, then we will ignore the first 2 epochs with no improvement, and will only decrease the LR after the 3rd epoch if the loss still hasn’t improved then.<sup>[4]</sup></p>
+
+<p>The two important quantities in loss plateau decay are:</p>
+<ul>
+  <li><em>Patience</em>: number of epochs with no improvements after which learning rate will be reduced.</li>
+  <li><em>Factor</em>: multiplier to decrease the learning-rate.  
+\(new\_lr=lr\times factor\)</li>
+</ul>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Tips</code></strong></p>
+<ul>
+  <li>For larger number of epochs increase the value of patience</li>
+  <li>Loss or accuracy or any other metric can be used for finding plateau</li>
+</ul>
+
+<h2 id="5-cosine-annealing">5. Cosine Annealing</h2>
+<p>Cosine Annealing was proposed in <code class="language-plaintext highlighter-rouge">SGDR: Stochastic Gradient Descent with Warm Restarts</code> by Ilya Loshchilov &amp; Frank Hutter. We will only be talking about the cosine annealing part here, we can leave out the Warm restart for a later time. In cosine annealing, we will be using the cosine function in the range \([0, \frac{\pi}{2}]\). This is particularly useful for us as in the early iterations it will give us a relatively large learning rate to quickly approach a local minimum (faster convergence), and towards the end, it gives us many small learning rate iterations (better loss/accuracy).</p>
+
+<p>Important parameters in cosine annealing are:-</p>
+<ul>
+  <li><em>min_lr</em>: the minimum learning rate</li>
+  <li><em>max_lr</em>: the maximum learning rate</li>
+  <li><em>cycle_length</em>: the number of epochs to run between the maximum and minimum learning rates</li>
+</ul>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Tips</code></strong></p>
+<ul>
+  <li>Longer cycle length usually works better.</li>
+  <li>Cosine Annealing with warm restarts produces better results than vanilla cosine annealing.</li>
+</ul>
+
+<h2 id="6-custom-schedules">6. Custom Schedules</h2>
+<p>Along with all these common LR scheduling methods, we can make our own schedules. So, let make a schedule that decays according to the function \(log(\frac{1}{x})\) .</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">LogAnnealingLR</span><span class="p">(</span><span class="n">_LRScheduler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">T_max</span><span class="p">,</span> <span class="n">eta_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">last_epoch</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">T_max</span> <span class="o">=</span> <span class="n">T_max</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">eta_min</span> <span class="o">=</span> <span class="n">eta_min</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LogAnnealingLR</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">last_epoch</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_lr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">eta_min</span> <span class="o">+</span> <span class="p">(</span><span class="n">base_lr</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">eta_min</span><span class="p">)</span> <span class="o">*</span>
+                <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">last_epoch</span> <span class="o">/</span> <span class="bp">self</span><span class="p">.</span><span class="n">T_max</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="k">for</span> <span class="n">base_lr</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">base_lrs</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h1 id="understanding-scheduling">Understanding Scheduling</h1>
+<p>A better way to understand the scheduling methods is by dividing them based on these two criteria:</p>
+<h5 id="1-frequency-when-does-the-learning-rate-get-changed">1. Frequency (When does the learning rate get changed?)</h5>
+
+<p>By ‘frequency’, I mean the intervals in which the learning rate changes. From all the schedules we have seen above, the learning rates are changed under different intervals. It could change discretely, like after a fixed interval(Step-wise decay). It could reduce continuously, like Polynomial Decay. Or when the learning-rate plateaus(Reduce on loss plateau decay). If we think in terms of the frequency of decay, the step-wise decay is just a type of exponential or polynomial decay, where the decay happens after a fixed interval(number of steps).</p>
+
+<h5 id="2-quantity-how-much-does-it-get-changed">2. Quantity (How much does it get changed?)</h5>
+
+<p>By ‘quantity’, I mean the ‘way of value-change’ in the learning-rate. It could happen exponentially, like in step-wise decay. It could be based on some function, like cosine-annealing decay. It is not compulsory that the change in learning rate has only to move downwards(decay), we have also seen some cyclic methods which usually out-perform these uni-directional decay schedules.</p>
+
+<h2 id="references">References</h2>
+<ol>
+  <li><a href="https://en.wikipedia.org/wiki/Learning_rate">Learning rate - Wikipedia</a></li>
+  <li><a href="https://mxnet.incubator.apache.org/versions/master/tutorials/gluon/learning_rate_schedules.html">Learning Rate Schedules - mxnet documentation</a></li>
+  <li><a href="https://openreview.net/pdf?id=HJePy3RcF7">Rethinking Learning Rate Schedules for Stochastic Optimization</a></li>
+  <li><a href="https://pytorch.org/docs/stable/_modules/torch/optim/lr_scheduler.html">LR_Scheduler-PyTorch Documentation</a></li>
+  <li><a href="https://www.deeplearningwizard.com/deep_learning/boosting_models_pytorch/lr_scheduling/">Learning Rate Scheduling - Deep Learning Wizard</a></li>
+  <li><a href="https://mxnet.incubator.apache.org/versions/master/tutorials/gluon/learning_rate_schedules.html">Polynomial Schedule - Learning Rate Schedules - mxnet documentation</a></li>
+</ol>
+
+<h2 id="credits">Credits</h2>
+
+<ul>
+  <li>Title Photo: Photo by <a href="https://unsplash.com/@simonfitall?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Simon Fitall</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></li>
+  <li>Gradient Descent <a href="https://github.com/trekhleb/machine-learning-octave/tree/master/linear-regression">Linear Regression - Octave</a></li>
+</ul>
+:ET

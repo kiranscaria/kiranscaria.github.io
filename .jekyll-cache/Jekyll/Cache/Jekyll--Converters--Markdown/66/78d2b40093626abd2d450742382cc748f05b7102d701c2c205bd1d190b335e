@@ -1,0 +1,224 @@
+I"d<h2 id="transfer-learning---dogs-vs-cats-classifier">Transfer Learning - Dogs vs Cats Classifier</h2>
+
+<blockquote>
+  <p>We can judge the heart of a man by his treatment of animals. <br />
+                                           <strong>Immanuel Kant</strong></p>
+</blockquote>
+
+<p>Who doesn’t like cats and dogs? Lets us combine the love for these animals and deep learning by making a deep learning network to classify cats and dogs. Today, we will be going to train a Dogs vs Cats Classifier in PyTorch using Transfer Learning. This post will be a point to start for anyone trying to get into Deep Learning. If you are new to the field of Deep Learning be sure to check out my introductory articles on <code class="language-plaintext highlighter-rouge">Deep Learning</code>. The classifier doesn’t use many sophisticated methods with all their bells and whistles but instead, we use transfer learning for an easy understanding of the model used.</p>
+
+<h3 id="what-is-deep-learning">What is Deep Learning?</h3>
+
+<p>The main ambition of neural networks is to mimic the performance of the human brain, but the human brain is in itself a very complex organ about which we still are much unaware of. The complexity of the brain is so much that the human brain can be easily said to be the most complex system that we had to evaluate. Its complexity can be demonstrated by the <a href="https://www.psychologytoday.com/blog/iage/201402/complexity-our-brain"><code class="language-plaintext highlighter-rouge">fact</code></a> that we have 125 trillion synapses in our cerebral cortex alone, which is approximately 1000 times the number of stars in our galaxy. The human brain is a highly efficient parallel processing machine. Its ability to function well different problems that vary in slight nuances is what makes the brain generalise well provides it with the ability to solve similar problems. This ability of the brain to use the knowledge gained in solving a problem to solve another similar problem prevents it from learning every task from the ground-up. When we try to imitate the human brain, this is one of the qualities of the brain that we must port to the computers. Transfer learning or inductive transfer offers us some way to implement this.</p>
+
+<p><img src="https://s3-ap-south-1.amazonaws.com/av-blog-media/wp-content/uploads/2017/05/31130754/transfer-learning.jpeg" alt="Image showing a man giving his brain to another man" title="Transfer Learning" /></p>
+
+<p>According to <a href="https://en.wikipedia.org/wiki/Transfer_learning"><code class="language-plaintext highlighter-rouge">Wikipedia</code></a>, Transfer learning or inductive transfer is a research problem in machine learning that focuses on storing knowledge gained while solving one problem and applying it to a different but related problem. This technique allows us to use the knowledge that we have learned from solving a problem in the past to solve a similar kind of problem in future.</p>
+
+<h5 id="advantages-of-using-transfer-learning">Advantages of using Transfer Learning</h5>
+
+<ul>
+  <li>Computationally efficient to train a model using transfer learning, than to train a whole new set of weights from scratch.</li>
+  <li>Data sets of large size are required for the deep learning model to generalise well. But, for all problems, we might not have access to large datasets. So, weights obtained by training the model in similar data can be reused and trained upon.</li>
+</ul>
+
+<p>Transfer Learning is an interesting topic on its own and much resources can be found online. But <a href="http://cs231n.github.io/transfer-learning/"><strong>CS231n’s notes on transfer learning</strong></a> is quite precise and well-written.
+Here we will be focusing more on how to train a basic network transfer learning. We will be using the <a href="http://pytorch.org/"><strong>PyTorch</strong></a> framework. We will be taking more of this framework in future posts. So, let’s get started.</p>
+
+<h3 id="pytorch-implementation">PyTorch Implementation:</h3>
+
+<p>To perform transfer learning, we are using a well-known convolutional neural network <a href="https://arxiv.org/abs/1512.03385"><strong>ResNet-18</strong></a>. This is a 18-layer recurrent neural network that would have taken much time if trained on a normal system. Here, the model has been trained using the 1000 classes of <a href="http://www.image-net.org/"><strong>ImageNet</strong></a> dataset. So, it is expected to work well for our dogs vs cats classifier since types of dogs and cats are included in the imagenet dataset.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="n">nn</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="n">optim</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">lr_scheduler</span>
+<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">transforms</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div></div>
+
+<p>We are using the data set provided by Kaggle in <a href="https://www.kaggle.com/c/dogs-vs-cats/data">Dogs vs Cats</a>. The data set contains  25,000 images of dogs and cats for training. This data is extracted into data folder containing two folders <em>train</em> and <em>test</em>. The train folder is again divided into two folders cats and dogs.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Data augmentation and Normalization for training
+# Just Normalization for Validation
+</span><span class="n">data_transforms</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1"># Composes several transforms together
+</span><span class="s">'train'</span><span class="p">:</span> <span class="n">transforms</span><span class="p">.</span><span class="n">Compose</span><span class="p">([</span> 
+<span class="c1"># Crop the given PIL.Image to random size and aspect ratio
+</span><span class="n">transforms</span><span class="p">.</span><span class="n">RandomSizedCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span> 
+<span class="c1"># Horizontally flips the given PIL-Image with a probability of 0.5
+</span><span class="n">transforms</span><span class="p">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(),</span> 
+<span class="c1"># Convert a PIL.Image or numpy.ndarray to tensor
+</span><span class="n">transforms</span><span class="p">.</span><span class="n">ToTensor</span><span class="p">(),</span> 
+<span class="n">transforms</span><span class="p">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+<span class="c1"># Normalize an tensor image with mean and standard deviation
+</span><span class="p">]),</span>
+
+<span class="s">'val'</span><span class="p">:</span> <span class="n">transforms</span><span class="p">.</span><span class="n">Compose</span><span class="p">([</span>
+<span class="c1"># Rescale the input PIL.image into desired size
+</span><span class="n">transforms</span><span class="p">.</span><span class="n">Scale</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span> 
+<span class="c1"># Crops the PIL.Image at the center
+</span><span class="n">transforms</span><span class="p">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span> 
+<span class="n">transforms</span><span class="p">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+<span class="n">transforms</span><span class="p">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+<span class="p">])</span>
+<span class="p">}</span>
+
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s">'data/dogscats'</span>
+
+<span class="n">image_datasets</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">datasets</span><span class="p">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span>
+    <span class="n">data_transforms</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'train'</span><span class="p">,</span> <span class="s">'val'</span><span class="p">]}</span>
+<span class="n">data_loaders</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">image_datasets</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> 
+<span class="n">batch_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'train'</span><span class="p">,</span> <span class="s">'val'</span><span class="p">]}</span>
+
+<span class="n">dataset_sizes</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">image_datasets</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'train'</span><span class="p">,</span> <span class="s">'val'</span><span class="p">]}</span>
+<span class="n">class_names</span> <span class="o">=</span> <span class="n">image_datasets</span><span class="p">[</span><span class="s">'train'</span><span class="p">].</span><span class="n">classes</span>
+</code></pre></div></div>
+
+<p>If gpu is available we will use it to accelerate our training process.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">use_gpu</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="n">is_available</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Now lets define our function for model training.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+<span class="n">since</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">best_model_wts</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">()</span>
+<span class="n">best_acc</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Epoch {}/{}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Each epoch has a training and validation phase
+</span><span class="k">for</span> <span class="n">phase</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'train'</span><span class="p">,</span> <span class="s">'val'</span><span class="p">]:</span>
+<span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s">'Train'</span><span class="p">:</span>
+<span class="n">scheduler</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>
+<span class="n">model</span><span class="p">.</span><span class="n">train</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># Set model to training mode
+</span><span class="k">else</span><span class="p">:</span>
+<span class="n">model</span><span class="p">.</span><span class="n">train</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span> <span class="c1"># Set model to evaluation mode
+</span>
+<span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">running_corrects</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Iterate over data
+</span><span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">data_loaders</span><span class="p">[</span><span class="n">phase</span><span class="p">]:</span>
+<span class="c1"># get the inputs
+</span><span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
+
+<span class="c1"># wrap them in Variable
+</span><span class="k">if</span> <span class="n">use_gpu</span><span class="p">:</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">inputs</span><span class="p">.</span><span class="n">cuda</span><span class="p">())</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">labels</span><span class="p">.</span><span class="n">cuda</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+<span class="c1"># zero the parameter gradients
+</span><span class="n">optimizer</span><span class="p">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+<span class="c1"># forward
+</span><span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+
+<span class="c1"># backward + optimize if only in training phase
+</span><span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s">'train'</span><span class="p">:</span>
+<span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="n">optimizer</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>
+
+<span class="c1"># statistics
+</span><span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">running_corrects</span> <span class="o">+=</span> <span class="n">torch</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">preds</span> <span class="o">==</span> <span class="n">labels</span><span class="p">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">epoch_loss</span> <span class="o">=</span> <span class="n">running_loss</span> <span class="o">/</span> <span class="n">dataset_sizes</span><span class="p">[</span><span class="n">phase</span><span class="p">]</span>
+<span class="n">epoch_acc</span> <span class="o">=</span> <span class="n">running_corrects</span> <span class="o">/</span> <span class="n">dataset_sizes</span><span class="p">[</span><span class="n">phase</span><span class="p">]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'{} Loss: {:.4f} Acc: {:.4f}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">phase</span><span class="p">,</span> <span class="n">epoch_loss</span><span class="p">,</span> <span class="n">epoch_acc</span><span class="p">))</span>
+
+<span class="c1"># deep copy the model
+</span><span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s">'val'</span> <span class="ow">and</span> <span class="n">epoch_acc</span> <span class="o">&gt;</span> <span class="n">best_acc</span><span class="p">:</span>
+<span class="n">best_acc</span> <span class="o">=</span> <span class="n">epoch_acc</span>
+<span class="n">best_model_wts</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">()</span>
+
+<span class="n">time_elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">since</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Training completed in {:.0f}m {:.0f}s'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">time_elapsed</span> <span class="o">//</span> <span class="mi">60</span><span class="p">,</span> <span class="n">time_elapsed</span> <span class="o">%</span> <span class="mi">60</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Best Validation accuracy {:.4f}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">best_acc</span><span class="p">))</span>
+
+<span class="c1"># load the best model weights
+</span><span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_model_wts</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">model</span>
+</code></pre></div></div>
+
+<p>Now, lets us tune the parameters.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model_ft</span> <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">num_ftrs</span> <span class="o">=</span> <span class="n">model_ft</span><span class="p">.</span><span class="n">fc</span><span class="p">.</span><span class="n">in_features</span>
+<span class="n">model_ft</span><span class="p">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">num_ftrs</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">use_gpu</span><span class="p">:</span>
+<span class="n">model_ft</span> <span class="o">=</span> <span class="n">model_ft</span><span class="p">.</span><span class="n">cuda</span><span class="p">()</span>
+
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+<span class="c1"># Observe that all the parameters have been optimized
+</span><span class="n">optimizer_ft</span> <span class="o">=</span> <span class="n">optim</span><span class="p">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model_ft</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+
+<span class="c1"># Decay learning rate by a factor of 0.1 every 7 epochs
+</span><span class="n">exp_lr_scheduler</span> <span class="o">=</span> <span class="n">lr_scheduler</span><span class="p">.</span><span class="n">StepLR</span><span class="p">(</span><span class="n">optimizer_ft</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now, everything is set. Lets us run the program to train the model.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model_conv</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span><span class="n">model_conv</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer_conv</span><span class="p">,</span> <span class="n">exp_lr_scheduler</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="output">Output:</h3>
+<p>Here is the output that we got for some of the early epochs. Even the initial results are quite promising.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Epoch 0/199
+----------
+train Loss: 0.0226 Acc: 0.9602
+val Loss: 0.0110 Acc: 0.9830
+
+Epoch 1/199
+----------
+train Loss: 0.0232 Acc: 0.9609
+val Loss: 0.0100 Acc: 0.9845
+
+Epoch 2/199
+----------
+train Loss: 0.0223 Acc: 0.9628
+val Loss: 0.0100 Acc: 0.9875
+
+Epoch 3/199
+----------
+train Loss: 0.0215 Acc: 0.9626
+val Loss: 0.0115 Acc: 0.9835
+
+Epoch 4/199
+----------
+train Loss: 0.0214 Acc: 0.9621
+val Loss: 0.0113 Acc: 0.9835
+
+Epoch 5/199
+----------
+train Loss: 0.0214 Acc: 0.9639
+val Loss: 0.0135 Acc: 0.9825
+</code></pre></div></div>
+
+<p>These are the results that we obtained on testing with some of the random images of cats and dogs.</p>
+
+<p><img src="https://live.staticflickr.com/7892/32619869567_2766347f3a_o_d.png" alt="Image of output of the model" title="Output of the model" /></p>
+
+<p>An interesting tutorial for the classification of Bees and Ants can be found at the <a href="http://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html"><em>official tutorial</em></a>.</p>
+:ET
