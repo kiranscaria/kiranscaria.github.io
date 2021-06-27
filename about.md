@@ -11,6 +11,6 @@ Technology is a marvelous mystery. Marvelous in the sense that its capable of br
 
 When I do not indulge in this magical world, you can find me travelling with my camera. You can see my photographs at [my photo blog](https://kiransphotographyblog.wordpress.com).
 
-If you would like to talk about anything interesting, you may fill in the contact form on the contact page. You can share your magical world with me by any of the links given below the page.
+If you would like to talk about anything interesting, you can contact me through any of the social links given. You can share your magical world with me by any of the links given below the page.
 
 `May your world be magical!`
