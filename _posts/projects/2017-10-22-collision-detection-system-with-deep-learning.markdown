@@ -1,5 +1,6 @@
 ---
 layout: post
+comment: true
 title: "Collision Detection System using Deep Learning"
 subtitle: "Making the roads a safer place."
 date: "2018-07-17 00:00:00"  
