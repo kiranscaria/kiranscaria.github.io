@@ -1,5 +1,6 @@
 ---
 layout: post
+comments: true
 title: Learning rate Schedules
 subtitle: For faster and better convergence.
 date: "2019-08-16 00:00:00"
