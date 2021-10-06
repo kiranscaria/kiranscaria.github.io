@@ -52,8 +52,12 @@ layout: default
       </div>
     </div>
 
-    {% if page.comments %}
-      {% include discus.html %}
-    {% endif %}
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% if page.comments %}
+          {% include discus.html %}
+        {% endif %}
+      </div>
+    </div>
   
   </div>
