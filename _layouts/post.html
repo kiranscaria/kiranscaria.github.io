@@ -52,8 +52,8 @@ layout: default
       </div>
     </div>
 
-    <div class="container">
+    {% if page.comments %}
       {% include discus.html %}
-    </div>
+    {% endif %}
 
   </div>
