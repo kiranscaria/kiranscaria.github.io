@@ -1,3 +1,14 @@
+---
+layout: post
+comments: true
+title: On training LLMs
+subtitle: Making Sense of a muddled space.
+date: "2024-02-12 00:00:00"
+author: Kiran Scaria
+background: '/assets/images/post-on-training-llms-bg.jpg'
+categories: general
+---
+
 # On training LLMs
 
 LLMs elicit the same feelings of wonder, promises, scepticism, and uncertainty as any other new technology. The news that we read about on a daily basis is either sensationalised or comes from elsewhere. They either increase the LLMs' skills or, occasionally, even give off the attraction of a doomsday prophecy. People are now aware of the capabilities of LLMs; ChatGPT, Co-Pilot in coding, and other features are now commonplace in our everyday lives. It is also well known that these are trained over an extended period of time with data from nearly the whole internet, on a multi-million dollar budget, utilising a very large cluster of GPU processors. Therefore, it would be simpler for anyone who needs to use LLMs to use one of the available commercial APIs rather than investing this much money in educating their own LLMs. Using these commercial APIs has some clear benefits, and in certain cases, it may even be the best choice for you. However, I want to assist you in making an informed choice before moving forward with that. Let's get our hands filthy if I've managed to get you on board thus far. I would set it up like this by responding to the following queries:
