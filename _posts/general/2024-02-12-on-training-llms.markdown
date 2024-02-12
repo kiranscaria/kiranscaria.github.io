@@ -13,11 +13,11 @@ categories: general
 
 LLMs elicit the same feelings of wonder, promises, scepticism, and uncertainty as any other new technology. The news that we read about on a daily basis is either sensationalised or comes from elsewhere. They either increase the LLMs' skills or, occasionally, even give off the attraction of a doomsday prophecy. People are now aware of the capabilities of LLMs; ChatGPT, Co-Pilot in coding, and other features are now commonplace in our everyday lives. It is also well known that these are trained over an extended period of time with data from nearly the whole internet, on a multi-million dollar budget, utilising a very large cluster of GPU processors. Therefore, it would be simpler for anyone who needs to use LLMs to use one of the available commercial APIs rather than investing this much money in educating their own LLMs. Using these commercial APIs has some clear benefits, and in certain cases, it may even be the best choice for you. However, I want to assist you in making an informed choice before moving forward with that. Let's get our hands filthy if I've managed to get you on board thus far. I would set it up like this by responding to the following queries:
 
-1. LLMs: What are they?
+### 1. LLMs: What are they?
 
 Artificial intelligence models known as Large Language Models (LLMs), such as GPT (Generative Pre-trained Transformer) and BERT (Bidirectional Encoder Representations from Transformers), have been trained on enormous volumes of textual data. In addition to producing text and comprehending natural language, these models are also capable of summarising, translating, and answering questions. Their ability to comprehend and generate text that is similar to that of a person is a result of deep learning algorithms and the large datasets they are trained on.
 
-2. How exactly are LLMs trained?
+### 2. How exactly are LLMs trained?
 
 There are numerous important processes in training LLMs:
 
