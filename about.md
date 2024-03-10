@@ -5,12 +5,16 @@ description: This is what I do.
 background: './assets/images/bg-about.jpg'
 ---
 
-My name is `Kiran Scaria`. I have completed my master's degree in `Artificial Intelligence` from the Central University of Rajasthan (CGPA: `9.57/10`). My main interest lies in the field of Artificial Intelligence although I am interested in all fields of Science.
+Hello, I’m `Kiran Scaria`.  I’ve journeyed through the ever-evolving landscape of AI, leading me to my current role as a `Technical Lead` at [Raga AI](https://raga.ai). My fascination with AI remains as strong as ever, driving me to explore the depths of machine learning, neural networks, and beyond. Some of my recent projects include:
+- [Raga LLM Hub](https://github.com/raga-ai-hub/raga-llm-hub): An open source library for evaluation of LLM Pipelines. 
 
-Technology is a marvelous mystery. Marvelous in the sense that its capable of bringing joy to the saddest of humans, hope to the faintest of hearts and goodness in the darkest of times. And a mystery for being far away from human understanding, for its own good. Technology is magical and one who has conjured it is a magician. I consider myself a magician, learning new tricks every day and perfecting the older ones. In this journey of seeking knowledge, I like to bring smiles to the others' faces and give them a true sense of magic.
 
-When I do not indulge in this magical world, you can find me travelling with my camera. You can see my photographs at [my photo blog](https://kiransphotographyblog.wordpress.com).
+The marvel of technology continues to inspire me daily. It’s a beacon of hope, a source of joy, and a bridge to unimaginable possibilities. As I've navigated through the realms of innovation and leadership, my belief in the magic of technology has only deepened. My role allows me to not just witness but actively shape the future, turning what was once deemed magical into reality. 
 
-If you would like to talk about anything interesting, you can contact me through any of the social links given. You can share your magical world with me by any of the links given below the page.
+In my quest for knowledge, I’ve realized that the true magic of technology lies not just in its capabilities but in its power to connect, transform, and uplift lives. My goal as a Technical Lead is not only to innovate but to mentor, guiding bright minds to discover their own magical abilities within the vast universe of AI.
 
-`May your world be magical!`
+Outside the digital world, my passion for photography continues to be a source of joy and exploration. Capturing moments, landscapes, and emotions through the lens offers me a different kind of magic – one that's tangible and timeless. I invite you to view the world through my eyes at [my photo blog](https://kiransphotographyblog.wordpress.com).
+
+I am always eager to connect with fellow enthusiasts, whether it’s about AI, technology, photography, or the myriad mysteries of life. If you’re interested in sharing ideas or just having a stimulating conversation, reach out through the social links below.
+
+`Let’s make our world magical, together!`
