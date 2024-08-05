@@ -3,7 +3,7 @@ layout: post
 comments: true
 title: From ChatGPT to Flux
 subtitle: The AI Revolution Continues
-date: "2024-05-08 00:00:00"
+date: "2024-08-05 00:00:00"
 author: Kiran Scaria
 background: '/assets/images/bg-from-chatgpt-to-flux.jpg'
 categories: general
