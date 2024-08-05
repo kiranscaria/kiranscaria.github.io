@@ -9,8 +9,6 @@ background: '/assets/images/bg-from-chatgpt-to-flux.jpg'
 categories: general
 ---
 
-# From ChatGPT to Flux: The AI Revolution Continues
-
 Hey there, tech enthusiasts! Remember when we thought ChatGPT was the pinnacle of AI? Well, hold onto your hats, because the AI world never stops spinning, and we've got some mind-blowing updates to share!
 
 ## A Quick Recap: LLMs and Stable Diffusion
