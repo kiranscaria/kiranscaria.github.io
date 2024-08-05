@@ -68,7 +68,7 @@ Flux isn't just another incremental improvement – it's breathing new life into
 
 However, it's important to note that there's still room for improvement. Take a look at this example:
 
-![Flux Schnell Area for Improvement: A mummified angel with red wings](placeholder_improvement_image.jpg)
+![Flux Schnell Area for Improvement: A mummified angel with red wings](img/posts/from-chatgpt-from-flux/out-0-33.webp)
 *While Flux has made great strides, there's still room for improvement. This mummified angel seems to have gained an extra arm. Maybe it's the latest heavenly fashion trend?*
 
 As you can see, while Flux has significantly improved upon previous models, there are still some challenges when it comes to rendering very complex structures or extremely intricate details. But hey, who are we to judge angelic fashion choices? This just goes to show that the field of AI-generated imagery is still evolving, and we can expect even more exciting (and hopefully less anatomically confusing) developments in the future!
