@@ -5,14 +5,7 @@ description: This is what I do.
 background: './assets/images/bg-about.jpg'
 ---
 
----
-layout: page
-title: About Me
-description: Exploring the magic of AI and beyond.
-background: './assets/images/bg-about.jpg'
----
-
-I’m Kiran Scaria, a `Technical Lead` at [Raga AI](https://raga.ai), where I channel my lifelong fascination with artificial intelligence into shaping its future. From machine learning to neural networks, I thrive at the intersection of innovation and impact. Some of my key contributions include:
+I’m Kiran Scaria, a `Tech Lead` at [Raga AI](https://raga.ai), where I channel my lifelong fascination with artificial intelligence into shaping its future. From machine learning to neural networks, I thrive at the intersection of innovation and impact. Some of my key contributions include:
 
 - **[Raga LLM Hub](https://github.com/raga-ai-hub/raga-llm-hub)**: An open-source library for evaluating LLM pipelines—proof that technology can be both powerful and accessible.
 - **[AgentNeo](https://github.com/raga-ai-hub/AgentNeo)**: A Python SDK I developed for Agent AI observability, offering tracing for agents, LLMs, and tools, plus debugging capabilities for multi-agent systems. It features a self-hosted dashboard and advanced analytics with timeline and execution graph views—laying the groundwork for what came next.
