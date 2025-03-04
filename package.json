@@ -33,6 +33,6 @@
         "url-parse": "^1.5.9"
     },
     "devDependencies": {
-        "browser-sync": "2.27.11"
+        "browser-sync": "3.0.3"
     }
 }
