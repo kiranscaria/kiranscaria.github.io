@@ -5,16 +5,23 @@ description: This is what I do.
 background: './assets/images/bg-about.jpg'
 ---
 
-Hello, I’m `Kiran Scaria`.  I’ve journeyed through the ever-evolving landscape of AI, leading me to my current role as a `Technical Lead` at [Raga AI](https://raga.ai). My fascination with AI remains as strong as ever, driving me to explore the depths of machine learning, neural networks, and beyond. Some of my recent projects include:
-- [Raga LLM Hub](https://github.com/raga-ai-hub/raga-llm-hub): An open source library for evaluation of LLM Pipelines. 
+---
+layout: page
+title: About Me
+description: Exploring the magic of AI and beyond.
+background: './assets/images/bg-about.jpg'
+---
 
+I’m Kiran Scaria, a `Technical Lead` at [Raga AI](https://raga.ai), where I channel my lifelong fascination with artificial intelligence into shaping its future. From machine learning to neural networks, I thrive at the intersection of innovation and impact. Some of my key contributions include:
 
-The marvel of technology continues to inspire me daily. It’s a beacon of hope, a source of joy, and a bridge to unimaginable possibilities. As I've navigated through the realms of innovation and leadership, my belief in the magic of technology has only deepened. My role allows me to not just witness but actively shape the future, turning what was once deemed magical into reality. 
+- **[Raga LLM Hub](https://github.com/raga-ai-hub/raga-llm-hub)**: An open-source library for evaluating LLM pipelines—proof that technology can be both powerful and accessible.
+- **[AgentNeo](https://github.com/raga-ai-hub/AgentNeo)**: A Python SDK I developed for Agent AI observability, offering tracing for agents, LLMs, and tools, plus debugging capabilities for multi-agent systems. It features a self-hosted dashboard and advanced analytics with timeline and execution graph views—laying the groundwork for what came next.
+- **[Catalyst](https://github.com/raga-ai-hub/RagaAI-Catalyst)**: Building on AgentNeo, this Python SDK elevates Agent AI observability and monitoring with a web-hosted dashboard, enhanced tracing, and a robust evaluation framework. Its advanced analytics, including timeline and execution graph views, empower developers to debug and optimize multi-agentic systems like never before.
 
-In my quest for knowledge, I’ve realized that the true magic of technology lies not just in its capabilities but in its power to connect, transform, and uplift lives. My goal as a Technical Lead is not only to innovate but to mentor, guiding bright minds to discover their own magical abilities within the vast universe of AI.
+For me, technology is more than code and systems—it’s a spark of wonder, a tool for connection, and a gateway to possibilities once thought impossible. As a leader, I’m driven not just to innovate but to inspire, mentoring others to unlock their own potential in the ever-expanding universe of AI.
 
-Outside the digital world, my passion for photography continues to be a source of joy and exploration. Capturing moments, landscapes, and emotions through the lens offers me a different kind of magic – one that's tangible and timeless. I invite you to view the world through my eyes at [my photo blog](https://kiransphotographyblog.wordpress.com).
+Beyond the digital realm, I find balance through photography, capturing fleeting moments and timeless landscapes. It’s a different kind of magic—one you can explore at **[my photo blog](https://kiransphotographyblog.wordpress.com)**.
 
-I am always eager to connect with fellow enthusiasts, whether it’s about AI, technology, photography, or the myriad mysteries of life. If you’re interested in sharing ideas or just having a stimulating conversation, reach out through the social links below.
+I’m always up for a conversation about AI, tech, photography, or life’s big questions. Let’s connect through the social links below and create something extraordinary together.
 
-`Let’s make our world magical, together!`
+`Here’s to making the world a little more magical.`
