@@ -18,7 +18,9 @@ So, in this blog,part of a series sifting the music from the AI/LLM/agentic hype
 
 Even before looking into LangMem, let us look more into memory. Long-term Memory is the type of memory that is responsible for lasting retention of information and skills. It is also the final stage of the multi-store memory model proposed by Atkinson-Shiffrin. Long-Term Memory can further be classified into two types: explicit (knowing that) and implicit (knowing how).
 
-![Types of Long-term Memory](/assets/images/post-langmem/long-term-memory.png "Types of Long-term Memory")  
+<div style="text-align: center; margin: 0 auto;">
+  <img src="/assets/images/post-langmem/long-term-memory.png" alt="Types of Long-term Memory" title="Types of Long-term Memory" style="width: 80%;">
+</div>
 
 Out of the different types of memory, the ones relevant of agentic applications are:
 
@@ -47,7 +49,9 @@ I’ve linked all the example code we’ll walk through [here](https://github.co
 
 LangMem handles memory in two distinct ways: consciously (in the hot path) and subconsciously (in the background). Let’s break it down.
 
-!["Demonstration of the two paths of Memory Saving: Hot Path vs Background"](/assets/images/post-langmem/hot_path_vs_background.png "Demonstration of the two paths of Memory Saving: Hot Path vs Background")
+<div style="text-align: center; margin: 0 auto;">
+  <img src="/assets/images/post-langmem/hot_path_vs_background.png" alt="Demonstration of the two paths of Memory Saving: Hot Path vs Background" title="Demonstration of the two paths of Memory Saving: Hot Path vs Background" style="width: 80%;">
+</div>
 
 #### **In the Hot Path**
 
