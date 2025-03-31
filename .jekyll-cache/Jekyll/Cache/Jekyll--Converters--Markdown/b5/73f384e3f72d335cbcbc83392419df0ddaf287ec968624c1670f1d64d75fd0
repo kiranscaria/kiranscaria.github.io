@@ -1,0 +1,120 @@
+I"<div class="container">
+  <div class="row">
+    <div class="col-lg-10 col-md-12 mx-auto">
+      <div class="project-heading mb-5">
+        <h1>AI Software Engineer</h1>
+        <p class="lead">An autonomous system capable of understanding, designing, and implementing software solutions with minimal human intervention.</p>
+      </div>
+      
+      <div class="project-overview mb-5">
+        <h2>Project Vision</h2>
+        <p>This project aims to develop an AI system that can:</p>
+        <ul>
+          <li>Understand software requirements from natural language descriptions</li>
+          <li>Design appropriate system architectures</li>
+          <li>Write clean, efficient, and maintainable code</li>
+          <li>Test and debug its own implementations</li>
+          <li>Refactor and optimize existing codebases</li>
+        </ul>
+      </div>
+      
+      <div class="journey-log">
+        <h2>Development Journey</h2>
+        <p class="text-muted">Follow my progress as I build this ambitious project</p>
+        
+        <div class="journey-day card mb-4">
+          <div class="card-header">
+            <h3 class="mb-0">Day 0: The Beginning</h3>
+            <small class="text-muted">March 31, 2025</small>
+          </div>
+          <div class="card-body">
+<p>For too long, I've been sitting on the banks, watching a stream of ideas flow through me. I've toyed with many of them; pondered, tinkered, and even brought a few close to completion; but I've always stepped back before they could fully take shape. None have crossed the finish line.</p>
+
+<p>Now, I'm ready to commit. I've chosen an idea that feels revolutionary, one I suspect many others are already chasing. It burst into the spotlight about a year ago when Devin's demo video took the internet by storm. Since then, a wave of similar tools  - like Lovable, Windsurf, Cursor and many more have emerged, some of which I use regularly. I've been impressed, some more than others, but I still feel the dream of a true AI Software Engineer remains out of reach. It's a concept that excites people, and I want to take my shot at it. So, starting now, I'm diving into building my own AI Software Engineer.</p>
+
+<p>Let me lay out my vision clearly:</p>
+<ul>
+<li>This is a passion project I'll tackle in my spare time, so progress will be slow.</li>
+<li>It's a solo endeavor - just me and the code.</li>
+<li>Will it be open source? I'd love for it to be, but I'll decide that once I've built something stable.</li>
+<li>My priority is correctness - ensuring the code it produces is reliable - over speed or cost-efficiency.</li>
+<li>The goal? An AI Software Engineer that outshines human coders in most tasks, with the ability to grow: learning from mistakes, mastering new frameworks, and adapting to new languages.</li>
+<li>I'll document this journey right here on this blog.</li>
+<li>Profit isn't the aim. I want to push the boundaries of what's possible with today's LLMs and tech, creating the best AI Software Engineer I can.</li>
+<li>I'll document this journey right here on this blog, sharing wins, setbacks, and everything in between.</li>
+</ul>
+
+<p>This is a massive undertaking, and I know it'll be tough. But that challenge sparks a thrilling mix of joy and trepidation, like standing on the edge of a cliff, heart racing, knowing the leap could change everything. When I use tools like the ones I mentioned, I can't shake the feeling they could be better. This is my chance to stop letting ideas slip away, to wade into the river and build something real.</p>
+          </div>
+        </div>
+        
+        <!-- Template for future days - Uncomment and modify when adding a new day
+        <div class="journey-day card mb-4">
+          <div class="card-header">
+            <h3 class="mb-0">Day X: Title</h3>
+            <small class="text-muted">Date</small>
+          </div>
+          <div class="card-body">
+            <p>Content goes here...</p>
+          </div>
+        </div>
+        -->
+        
+      </div>
+      
+      <div class="technologies mt-5 mb-5">
+        <h2>Technologies</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="tech-card p-3 mb-3">
+              <h4><i class="fas fa-brain mr-2"></i> Large Language Models</h4>
+              <p>Leveraging state-of-the-art LLMs for code understanding and generation</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="tech-card p-3 mb-3">
+              <h4><i class="fas fa-code mr-2"></i> Code Understanding Frameworks</h4>
+              <p>Tools for parsing, analyzing, and comprehending code structure</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="tech-card p-3 mb-3">
+              <h4><i class="fas fa-bug mr-2"></i> Static Analysis Tools</h4>
+              <p>Identifying potential issues before runtime</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="tech-card p-3 mb-3">
+              <h4><i class="fas fa-vial mr-2"></i> Automated Testing</h4>
+              <p>Ensuring code reliability through comprehensive testing</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.journey-day .card-header {
+  background-color: rgba(0,0,0,0.03);
+}
+
+.tech-card {
+  border: 1px solid rgba(0,0,0,0.125);
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.project-heading {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 1.5rem;
+}
+</style>
+
+:ET

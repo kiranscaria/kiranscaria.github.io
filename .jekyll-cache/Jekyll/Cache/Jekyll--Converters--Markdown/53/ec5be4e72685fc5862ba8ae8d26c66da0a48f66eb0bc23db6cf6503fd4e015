@@ -1,0 +1,129 @@
+I"�<div class="container">
+  <div class="row">
+    <div class="col-lg-10 col-md-12 mx-auto">
+      <div class="project-heading mb-5">
+        <h1>AI Software Engineer</h1>
+        <p class="lead">An autonomous system capable of understanding, designing, and implementing software solutions with minimal human intervention.</p>
+      </div>
+      
+      <div class="project-overview mb-5">
+        <h2>Project Vision</h2>
+        <p>This project aims to develop an AI system that can:</p>
+        <ul>
+          <li>Understand software requirements from natural language descriptions</li>
+          <li>Design appropriate system architectures</li>
+          <li>Write clean, efficient, and maintainable code</li>
+          <li>Test and debug its own implementations</li>
+          <li>Refactor and optimize existing codebases</li>
+        </ul>
+      </div>
+      
+      <div class="journey-log mb-5">
+        <h2>Development Journey</h2>
+        <p class="text-muted mb-4">Follow my progress as I build this ambitious project</p>
+        
+        <div class="journal-entries">
+          
+          
+            <div class="journal-entry mb-4">
+              <div class="entry-date">
+                <span class="day">31</span>
+                <span class="month">Mar</span>
+                <span class="year">2025</span>
+              </div>
+              <div class="entry-content">
+                <h3><a href="/day-0-the-beginning">Day 0: The Beginning</a></h3>
+                <p>For too long, I’ve been sitting on the banks, watching a stream of ideas flow through me. I’ve toyed with many of them; pondered, tinkered, and even brought a few...</p>
+                <a href="/day-0-the-beginning" class="read-more">Read more &rarr;</a>
+              </div>
+            </div>
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.project-heading {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 1.5rem;
+}
+
+.journal-entry {
+  display: flex;
+  align-items: flex-start;
+}
+
+.entry-date {
+  flex: 0 0 80px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  margin-right: 20px;
+}
+
+.entry-date .day {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.entry-date .month {
+  display: block;
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin: 5px 0;
+}
+
+.entry-date .year {
+  display: block;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.entry-content {
+  flex: 1;
+}
+
+.entry-content h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.entry-content h3 a {
+  color: #212529;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.entry-content h3 a:hover {
+  color: #0085A1;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: #0085A1;
+  text-decoration: none;
+}
+
+@media (max-width: 576px) {
+  .journal-entry {
+    flex-direction: column;
+  }
+  
+  .entry-date {
+    flex: 0 0 auto;
+    margin-bottom: 15px;
+    margin-right: 0;
+    display: inline-block;
+  }
+}
+</style>
+
+:ET

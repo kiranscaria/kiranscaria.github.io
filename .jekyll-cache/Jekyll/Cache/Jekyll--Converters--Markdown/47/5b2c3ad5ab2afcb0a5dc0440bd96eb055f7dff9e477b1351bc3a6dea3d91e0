@@ -1,0 +1,84 @@
+I"m <h1 id="langmem-long-term-memory-for-agentic-applications">LangMem: Long Term Memory for Agentic Applications</h1>
+
+<p>Agentic applications are the latest buzzword everyone’s chasing. But let’s be real,slapping an LLM onto a tool or making it pick from a dropdown menu doesn’t scream “agentic genius.” Like every overhyped trend before it,websites, apps, NFTs, you name it,the dust will settle, and only the apps delivering real value will survive. Right now, companies are just bolting “Agentic” or “AI” onto anything to stay trendy. If this keeps up, we’ll have agentic brooms sweeping floors and agentic telescopes stargazing for us. It’s time to cut through the noise and focus on applications that actually matter.</p>
+
+<p>What sets a true agentic application apart? Sure, LLMs and tool integration are table stakes. But the real magic lies in two things: learning from mistakes to get better over time and remembering experiences like a human would. By “getting better,” I mean measurable improvement,whether it’s accuracy, speed, or user satisfaction,tailored to the app’s purpose. And by “remembering,” I mean cataloging experiences in a way that’s retrievable and useful, not just dumping data into a void. These aren’t flashy gimmicks; they’re the backbone of systems that evolve with us.</p>
+
+<p>So, in this blog,part of a series sifting the music from the AI/LLM/agentic hype machine,we’re diving into a tool called <code class="language-plaintext highlighter-rouge">LangMem</code> that helps to store, retrieve and manage long-term memory for agents.</p>
+
+<p>Even before looking into LangMem, let us look more into memory. Long-term Memory is the type of memory that is responsible for lasting retention of information and skills. It is also the final stage of the multi-store memory model proposed by Atkinson-Shiffrin. Long-Term Memory can further be classified into two types: explicit (knowing that) and implicit (knowing how).</p>
+
+<div style="text-align: center; margin: 0 auto;">
+  <img src="/assets/images/post-langmem/long-term-memory.png" alt="Types of Long-term Memory" title="Types of Long-term Memory" style="width: 80%;" />
+</div>
+
+<p>Out of the different types of memory, the ones relevant of agentic applications are:</p>
+
+<ol>
+  <li><strong>Episodic</strong> (experienced events): This is the part of the explicit long-term memory responsible for storing information about events (i.e. episodes) that we have experiences in our lives.<br />
+In the case of agents, episodic memory would mean experiences that help remember how to do tasks.</li>
+  <li><strong>Semantic</strong> (knowledge and concepts): This is the part of the explicit long-term memory responsible for storing information about the world. This includes knowledge about the meaning of words, as well as general knowledge.<br />
+In case of agents, this would mean remembering facts like date of births for a calendar agent, appointments details for a personal assistant agent etc.</li>
+  <li><strong>Procedural</strong> (skills and actions): Procedural memory is a part of implicit long-term memory responsible for knowing how to do things, i.e., memory of motor skills.<br />
+It does not involve conscious thought. For example, procedural memory would involve knowledge of how to ride a bicycle.<br />
+Rules that an agent has to follow can be categorised into this type.</li>
+</ol>
+
+<p>Now that we have looked at the relevant details regarding memory, let’s get back to LangMem.</p>
+
+<h3 id="what-langmem-brings-to-the-table">What LangMem Brings to the Table</h3>
+
+<p>LangMem is built to help agents adapt over time by learning from conversations, refining their prompts, and storing knowledge effectively. It provides a vector database that is searchable, shareable, persistent storage that can be immediately updated by the agent or updated in the background by a helper agent. Its key features include:</p>
+
+<ol>
+  <li>A <strong>Core Memory API</strong> that plugs into any storage system you’re using.</li>
+  <li><strong>Memory Management Tools</strong> for agents to record and search info during live conversations (aka “in the hot path”).</li>
+  <li>A <strong>Background Memory Manager</strong> that automatically extracts and organizes knowledge behind the scenes.</li>
+  <li>Native integration with LangGraph’s Long-Term Memory Store for seamless scalability.</li>
+</ol>
+
+<p>I’ve linked all the example code we’ll walk through <a href="https://github.com/kiranscaria/langmem_tutorial">here</a>, so you can follow along or tweak it yourself.</p>
+
+<h3 id="how-memory-gets-built">How Memory Gets Built</h3>
+
+<p>LangMem handles memory in two distinct ways: consciously (in the hot path) and subconsciously (in the background). Let’s break it down.</p>
+
+<div style="text-align: center; margin: 0 auto;">
+  <img src="/assets/images/post-langmem/hot_path_vs_background.png" alt="Demonstration of the two paths of Memory Saving: Hot Path vs Background" title="Demonstration of the two paths of Memory Saving: Hot Path vs Background" style="width: 80%;" />
+</div>
+
+<h4 id="in-the-hot-path"><strong>In the Hot Path</strong></h4>
+
+<p>Here, the agent takes control. LangMem provides two tools: <code class="language-plaintext highlighter-rouge">create_manage_memory_tool</code> and <code class="language-plaintext highlighter-rouge">create_search_memory_tool</code>. These let agents manually store notes or retrieve info during a conversation. A <code class="language-plaintext highlighter-rouge">namespace</code> parameter keeps everything scoped—think of it as a filing cabinet to avoid memory overlap. Want to see it in action? Check out the <a href="[https://github.com/kiranscaria/langmem_tutorial/blob/main/1.hot_path.py](https://github.com/kiranscaria/langmem_tutorial/blob/main/1.hot_path.py)">example code</a>.</p>
+
+<h4 id="in-the-background"><strong>In the Background</strong></h4>
+
+<p>This is where LangMem gets clever. Using <code class="language-plaintext highlighter-rouge">create_memory_store_manager</code>, it extracts and consolidates memories automatically while the agent keeps chatting. Every message gets saved, but there’s a twist: you can delay processing with a <code class="language-plaintext highlighter-rouge">delay</code> option. Why? To avoid:</p>
+
+<ol>
+  <li>Redundant work when messages flood in fast.</li>
+  <li>Half-baked context mid-conversation.</li>
+  <li>Wasted tokens on unnecessary processing.</li>
+</ol>
+
+<p>The result? Cleaner, smarter memory handling. I’ve got examples of this too <a href="[https://github.com/kiranscaria/langmem_tutorial/blob/main/2.background.py](https://github.com/kiranscaria/langmem_tutorial/blob/main/2.background.py)">example1</a>, <a href="[https://github.com/kiranscaria/langmem_tutorial/blob/main/3.delayed_memory_processing.py](https://github.com/kiranscaria/langmem_tutorial/blob/main/3.delayed_memory_processing.py)">example2</a>.</p>
+
+<h3 id="why-this-matters">Why This Matters</h3>
+
+<p>LangMem’s dual approach—active and passive memory building—ties directly into what we said earlier: agentic apps need to learn and remember to be valuable. It’s not just about hoarding data; it’s about making that data actionable over time.</p>
+
+<p>In the next edition of this blog series, we’ll put LangMem into practice by building a fully functional agentic application, demonstrating these memory concepts in action.</p>
+
+<h3 id="dig-deeper">Dig Deeper</h3>
+
+<p>Want the nitty-gritty? Check out the official docs:</p>
+
+<ol>
+  <li><a href="https://langchain-ai.github.io/langmem/#creating-an-agent">LangMem Documentation: Introduction</a></li>
+  <li><a href="https://langchain-ai.github.io/langmem/hot_path_quickstart/">In the hot path</a></li>
+  <li><a href="https://langchain-ai.github.io/langmem/background_quickstart/">In the background</a></li>
+  <li><a href="https://langchain-ai.github.io/langmem/guides/delayed_processing/">Delayed Background Memory Processing</a></li>
+  <li><a href="https://www.simplypsychology.org/long-term-memory.html">Long-Term Memory in Psychology</a></li>
+  <li><a href="https://learn.deeplearning.ai/courses/long-term-agentic-memory-with-langgraph">Long-term Agentic Memory with LangGraph: A Course by DeepLearning.ai</a></li>
+</ol>
+:ET
