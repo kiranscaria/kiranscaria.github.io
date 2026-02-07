@@ -988,6 +988,21 @@ main :where(a, button, input, textarea, select):focus-visible {
   padding: clamp(16px, 2vw, 22px);
 }
 
+.comments-block #disqus_thread {
+  min-height: 320px;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] .comments-block #disqus_thread {
+  color-scheme: dark;
+}
+
+.comments-block #disqus_thread iframe {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
 .post-pagination {
   margin-top: var(--space-6);
   display: grid;
