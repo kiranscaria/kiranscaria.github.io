@@ -1,0 +1,27 @@
+I"¥<p>I build long-horizon AI systems with a strong bias toward correctness, observability, and measurable improvement over time.</p>
+
+<p>Project notes are published as essays with architecture context, tradeoffs, and follow-up milestones.</p>
+
+<h2 id="current-focus">Current Focus</h2>
+
+<ul>
+  <li>autonomous coding workflows with rigorous verification loops</li>
+  <li>long-term memory architectures for production assistants</li>
+  <li>evaluation-first delivery for LLM and agent stacks</li>
+</ul>
+
+<h2 id="project-log">Project Log</h2>
+
+<h3 id="orma---blueprint-for-a-unified-hybrid-memory-core-for-intelligent-applications"><a href="/orma-memory-blueprint">Orma - Blueprint for a Unified Hybrid Memory Core for Intelligent Applications</a></h3>
+
+<p><em>July 29, 2025</em></p>
+
+<p>Orma: The Unified Hybrid Memory Core for Intelligent Applications</p>
+
+<h3 id="collision-detection-system-using-deep-learning"><a href="/collision-detection-system-with-deep-learning">Collision Detection System using Deep Learning</a></h3>
+
+<p><em>July 17, 2018</em></p>
+
+<p>Today we will be talking about an Object Detection System using Deep Learning that can be used to detect vehicular collisions.</p>
+
+:ET

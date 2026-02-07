@@ -1,20 +1,28 @@
 ---
 layout: page
-title: About Me
-description: This is what I do.
-background: "./assets/images/bg-about.jpg"
+title: About
+description: Practical engineering notes from production AI systems.
+eyebrow: About
 ---
+I am **Kiran Scaria**, a Principal AI Engineer focused on building dependable AI systems that ship and hold up in production.
 
-I’m Kiran Scaria, working as a Principal AI Engineer, where I channel my lifelong fascination with artificial intelligence into shaping its future. From machine learning to neural networks, I thrive at the intersection of innovation and impact. Some of my key contributions include:
+Most of my work sits at the intersection of agent frameworks, memory systems, observability, and evaluation. I use this blog as an engineering journal: what worked, what failed, and what I would improve next.
 
-- **[Raga LLM Hub](https://github.com/raga-ai-hub/raga-llm-hub)**: An open-source library for evaluating LLM pipelines—proof that technology can be both powerful and accessible.
-- **[AgentNeo](https://github.com/raga-ai-hub/AgentNeo)**: A Python SDK I developed for Agent AI observability, offering tracing for agents, LLMs, and tools, plus debugging capabilities for multi-agent systems. It features a self-hosted dashboard and advanced analytics with timeline and execution graph views—laying the groundwork for what came next.
-- **[Catalyst](https://github.com/raga-ai-hub/RagaAI-Catalyst)**: Building on AgentNeo, this Python SDK elevates Agent AI observability and monitoring with a web-hosted dashboard, enhanced tracing, and a robust evaluation framework. Its advanced analytics, including timeline and execution graph views, empower developers to debug and optimize multi-agentic systems like never before.
+If you are new here, start with the [latest posts](/posts/) for current implementation notes.
 
-For me, technology is more than code and systems—it’s a spark of wonder, a tool for connection, and a gateway to possibilities once thought impossible. As a leader, I’m driven not just to innovate but to inspire, mentoring others to unlock their own potential in the ever-expanding universe of AI.
+## Selected Open Source Work
 
-Beyond the digital realm, I find balance through photography, capturing fleeting moments and timeless landscapes. It’s a different kind of magic—one you can explore at **[my photo blog](https://kiransphotographyblog.wordpress.com)**.
+- [Raga LLM Hub](https://github.com/raga-ai-hub/raga-llm-hub): Evaluation tooling for LLM pipelines.
+- [AgentNeo](https://github.com/raga-ai-hub/AgentNeo): Python SDK for tracing, debugging, and observing agentic systems.
+- [RagaAI Catalyst](https://github.com/raga-ai-hub/RagaAI-Catalyst): Hosted observability and evaluation workflows for production AI applications.
 
-I’m always up for a conversation about AI, tech, photography, or life’s big questions. Let’s connect through the social links below and create something extraordinary together.
+## What You Will Find Here
 
-`Here’s to making the world a little more magical.`
+- practical deep dives on agent architecture and memory patterns
+- implementation notes on LLM infrastructure and reliability
+- project retrospectives from systems built in the open
+- tooling and workflows that improve engineering feedback loops
+
+Outside software, I spend time with photography. You can see that work on [my photo blog](https://kiransphotographyblog.wordpress.com).
+
+If this writing is useful, connect through the links in the footer.

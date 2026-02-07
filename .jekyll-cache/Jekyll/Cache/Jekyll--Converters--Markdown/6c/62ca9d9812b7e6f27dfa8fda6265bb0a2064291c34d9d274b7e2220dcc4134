@@ -1,0 +1,62 @@
+I"�<p>There’s been a lot of buzz around Manus lately, positioning it as a go-to AI solution for complex tasks like coding and deep research. Naturally, I was curious. Does it live up to the hype, or is it another case of sizzle over steak? I decided to put it through its paces, comparing it with some other tools I often use. Let’s see how it fared.</p>
+
+<h2 id="round-1-the-coding-gauntlet">Round 1: The Coding Gauntlet</h2>
+
+<p>First up, coding. I decided to give Manus a reasonably complex, real-world-ish task using a zero-shot approach – no hand-holding, just the prompt. I wanted to see how close it could get straight out of the box.</p>
+
+<h3 id="the-prompt">The Prompt:</h3>
+
+<p>I asked Manus to tackle a multi-part development task:</p>
+
+<ul>
+  <li><strong>Build the Slack MCP Server</strong>: Implement a FastMCP-based server for Slack events/commands, integrate MCPInspector, and ensure secure channels.</li>
+  <li><strong>Orchestrate AI Agents</strong>: Scaffold an agent framework with PydanticAI, use Litellm for LLM calls (async, batched, fault-tolerant), and set up messaging protocols.</li>
+  <li><strong>Implement Memory Management</strong>: Deploy Redis for short-term cache, Pinecone/Weaviate for long-term vector storage, and build APIs for memory operations.</li>
+</ul>
+
+<h3 id="the-result">The Result:</h3>
+
+<p>Well, it certainly took its time. After chewing through the prompt, Manus reported using 594 “resources.” Based on their pricing ($39 for 3900 resources, <a href="https://manus.im/">https://manus.im/</a>), that single attempt cost roughly $5.94.</p>
+
+<p>And the deliverable? Let’s just say it wasn’t quite ready for production. Or development. Or staging. The solution simply didn’t work. It seemed to stumble over some package names and apparently didn’t think to quickly check the internet to resolve ambiguities.</p>
+
+<p>Looking at the output, my gut feeling is that the underlying model might not be playing in the same league as heavyweights like Claude Sonnet 3.7, Gemini 2.5 Pro, or GPT 4.1. For coding tasks like this, I’d probably stick with something like WindSurf paired with a strong model like Claude Sonnet 3.7 – my experience suggests that combo is not only more effective but likely cheaper too.</p>
+
+<h2 id="round-2-the-deep-research-dive">Round 2: The Deep Research Dive</h2>
+
+<p>Okay, maybe coding isn’t Manus’s forte. The chatter suggests it excels at deep research. So, I gave it a task requiring detailed, multi-faceted information gathering.</p>
+
+<h3 id="the-prompt-1">The Prompt:</h3>
+
+<p>I needed a comprehensive guide on registering a Limited Liability Partnership (LLP) in India specifically for exporting software services to the EU. I asked for everything:</p>
+
+<ul>
+  <li>Legal/procedural steps for LLP registration in India.</li>
+  <li>Compliance for exporting software services to the EU.</li>
+  <li>Timelines, documentation, approximate costs.</li>
+  <li>A recurring compliance calendar.</li>
+  <li>Specific registrations/licenses needed.</li>
+  <li>Best practices for regulatory compliance and managing foreign clients/contracts.</li>
+  <li>Consideration of relevant laws (Companies Act, LLP Act, FEMA, recent amendments) and court rulings.</li>
+</ul>
+
+<h3 id="the-result-1">The Result:</h3>
+
+<p>I ran a similar test using OpenAI’s DeepResearch feature. Both tools took a fair bit of time, which is expected for deep dives. OpenAI, however, started by asking some clarifying questions to refine the scope – a sensible approach.</p>
+
+<p>Manus, on the other hand, gave me a running commentary of its process, including showing the specific web pages it was browsing. Honestly, this felt more like a gimmick than a genuinely useful feature for this application. Did I really need to see the browser window flicker?</p>
+
+<p>Manus clocked in at 424 credits for this task, translating to about $4.24. How does that compare? Estimating OpenAI’s cost is tricky, as DeepResearch is bundled. But if we very roughly allocate the $20 subscription cost across its 10 monthly DeepResearch uses (ignoring all other GPT-4 usage, DALL-E, etc.), we could ballpark it at ~$2 per research task. Even with caveats, Manus looks pricier here too.</p>
+
+<p>More importantly, based on this experience, tools like OpenAI DeepResearch (and likely Google’s equivalent, though untested here) seem better suited for this kind of in-depth research task.</p>
+
+<h2 id="the-verdict-is-manus-worth-the-hype-and-the-cost">The Verdict: Is Manus Worth the Hype (and the Cost)?</h2>
+
+<p>Based on my little experiment, I’m left unconvinced.</p>
+
+<p><strong>For Coding</strong>: It struggled significantly, produced non-working code, and seemed expensive for the attempt. Tools like WindSurf combined with top-tier models feel more reliable and cost-effective.</p>
+
+<p><strong>For Research</strong>: While it completed the task, the process felt less refined than competitors like OpenAI DeepResearch, and it still came out looking like the more expensive option.</p>
+
+<p>My takeaway? Manus might be getting a lot of attention, but in its current state, it seems like a costlier and less capable alternative compared to other established solutions for both coding and research. The hype, for now, seems greater than the reality.</p>
+:ET

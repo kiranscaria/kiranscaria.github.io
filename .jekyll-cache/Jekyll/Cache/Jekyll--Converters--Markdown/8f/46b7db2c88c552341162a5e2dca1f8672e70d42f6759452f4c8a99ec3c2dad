@@ -1,0 +1,187 @@
+I"lH<h2 id="orma-the-unified-hybrid-memory-core-for-intelligent-applications"><strong>Orma: The Unified Hybrid Memory Core for Intelligent Applications</strong></h2>
+
+<p><strong>Version 0.1</strong></p>
+
+<h3 id="1-the-vision-beyond-conversation-history"><strong>1. The Vision: Beyond Conversation History</strong></h3>
+
+<p>Traditional AI memory is fleeting. Chatbots can remember the last few turns of a conversation but lack a deep, persistent understanding of their context. They don’t know the company’s products, understand its internal policies, or recognize the complex relationships between users, orders, and tickets. This results in repetitive, inefficient, and unintelligent user experiences.</p>
+
+<p><strong>Orma</strong> (from the Malayalam word <strong>ഓർമ്മ</strong>, meaning “memory” or “recollection”) is engineered to solve this fundamental problem. It is not merely a memory module; it is a <strong>pluggable, “live” knowledge core</strong> designed to serve as the comprehensive brain for any application, from customer support chatbots to complex internal agents.</p>
+
+<p>Orma’s core principle is a clear <strong>separation of concerns</strong>:</p>
+
+<ul>
+  <li><strong>Orma provides Knowledge:</strong> It ingests, synthesizes, and provides deep context from conversations, databases, documents, and knowledge graphs through a simple, powerful query interface.</li>
+  <li><strong>The Developer provides Action:</strong> The developer retains full control over their business logic, security, and external API calls (Tools), using Orma to empower their actions with unparalleled context.</li>
+</ul>
+
+<h3 id="2-the-multi-layered-hybrid-architecture"><strong>2. The Multi-Layered Hybrid Architecture</strong></h3>
+
+<p>Orma employs a hybrid, multi-layered data architecture where each component is optimized for a specific function: speed, persistence, or contextual reasoning.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Role</th>
+      <th>Analogy</th>
+      <th>Purpose &amp; Data Stored</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Redis</strong></td>
+      <td><strong>The Reflex System</strong></td>
+      <td>The Spinal Cord</td>
+      <td><strong>Handles high-speed, volatile data.</strong> Stores active session IDs, a “hot” buffer of recent messages for instant recall, and serves as a high-speed message broker (Pub/Sub) to trigger asynchronous background tasks.</td>
+    </tr>
+    <tr>
+      <td><strong>Supabase (Postgres)</strong></td>
+      <td><strong>The Chronicle &amp; Semantic Memory</strong></td>
+      <td>The Journal</td>
+      <td><strong>Provides immutable, persistent storage.</strong> It is the ground truth, storing the full transcript of every conversation. With the <code class="language-plaintext highlighter-rouge">pgvector</code> extension, it also stores vector embeddings for every message and ingested document, creating a searchable “semantic memory” of what was said or written.</td>
+    </tr>
+    <tr>
+      <td><strong>Neo4j</strong></td>
+      <td><strong>The Cortex</strong></td>
+      <td>The Brain’s Neural Network</td>
+      <td><strong>Models deep context and relationships.</strong> Stores a structured knowledge graph of extracted entities (e.g., users, products, companies) and the relationships between them (e.g., <code class="language-plaintext highlighter-rouge">PURCHASED</code>, <code class="language-plaintext highlighter-rouge">WORKS_FOR</code>, <code class="language-plaintext highlighter-rouge">MENTIONED_IN</code>). This enables complex, multi-hop reasoning.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="3-the-active-learning-framework-how-orma-gets-smarter"><strong>3. The Active Learning Framework: How Orma Gets Smarter</strong></h3>
+
+<p>Orma is not a static repository; it is a dynamic system designed to learn and improve over time. The Active Learning Framework operates continuously in the background to refine what Orma knows and how it retrieves that knowledge.</p>
+
+<h4 id="31-intelligent-salience-detection-what-to-store"><strong>3.1 Intelligent Salience Detection (What to Store)</strong></h4>
+
+<p>Not every piece of information in a conversation is a “fact” worth remembering. Orma uses a background LLM process to analyze conversational turns and assign a <strong>salience score</strong>.</p>
+
+<ul>
+  <li><strong>High Salience:</strong> A user explicitly stating a preference (“My new shipping address is…”), a problem (“The screen is cracked”), or a relationship (“Sarah is my manager”). These are prioritized for extraction into the Neo4j knowledge graph.</li>
+  <li><strong>Low Salience:</strong> Pleasantries (“How are you today?”), acknowledgements (“Okay, got it”), or filler phrases. These are logged in the Postgres transcript but are not promoted to the structured knowledge graph, preventing clutter.</li>
+</ul>
+
+<h4 id="32-retrieval-feedback-loop-when-and-how-to-retrieve"><strong>3.2 Retrieval Feedback Loop (When and How to Retrieve)</strong></h4>
+
+<p>Orma learns from the success and failure of its own context retrieval to improve future performance.</p>
+
+<ul>
+  <li><strong>Implicit Signals:</strong> If a user has to rephrase a question multiple times, it’s a strong signal that the initial context retrieved by Orma was insufficient. Orma logs these events to fine-tune its retrieval algorithms.</li>
+  <li><strong>Explicit Signals:</strong> When an agent successfully uses a tool after being provided context from Orma, it reinforces the connection between the user’s intent and the retrieved data. This feedback is used to strengthen the weights on specific knowledge graph paths.</li>
+  <li><strong>Tool Usage Analysis:</strong> By analyzing which pieces of retrieved context (e.g., specific entities from Neo4j, document chunks from Supabase) are most frequently used in successful tool calls, Orma learns to prioritize that type of information for similar future queries.</li>
+</ul>
+
+<h4 id="33-automated-knowledge-curation"><strong>3.3 Automated Knowledge Curation</strong></h4>
+
+<p>The knowledge graph is actively managed to ensure it remains accurate and efficient.</p>
+
+<ul>
+  <li><strong>Consolidation:</strong> Orma identifies and merges redundant or related facts. For example, <code class="language-plaintext highlighter-rouge">(User)-[:HAS_PRODUCT]-&gt;(Aura Pro)</code> and <code class="language-plaintext highlighter-rouge">(User)-[:OWNS]-&gt;(Aura Pro Headphones)</code> can be consolidated into a single, canonical relationship.</li>
+  <li><strong>Inference:</strong> The system can proactively infer new relationships. If the graph knows <code class="language-plaintext highlighter-rouge">(Alex)-[:MANAGES]-&gt;(Bob)</code>and <code class="language-plaintext highlighter-rouge">(Bob)-[:MANAGES]-&gt;(Carol)</code>, it can create a new, inferred relationship <code class="language-plaintext highlighter-rouge">(Alex)-[:HAS_INDIRECT_REPORT]-&gt;(Carol)</code>.</li>
+  <li><strong>Decay &amp; Archiving:</strong> Information can become stale. A shipping address from five years ago is less likely to be relevant than one from last week. Orma can assign a decay score to facts based on time and usage, deprioritizing them in queries without deleting them from the permanent record.</li>
+</ul>
+
+<h3 id="4-the-knowledge-ingestion-framework"><strong>4. The Knowledge Ingestion Framework</strong></h3>
+
+<p>For Orma to be a true knowledge core, it must be able to learn from the business’s entire data ecosystem. The Ingestion Framework makes this possible through two primary pipelines.</p>
+
+<h4 id="41-connector-based-ingestion-for-structured-data"><strong>4.1 Connector-Based Ingestion (For Structured Data)</strong></h4>
+
+<p>This pipeline syncs with external data sources that have a clear schema, like product catalogs or existing databases.</p>
+
+<ol>
+  <li><strong>Connect:</strong> The client uses the Orma dashboard to securely connect to their existing systems (e.g., Shopify, Salesforce, PostgreSQL) via pre-built connectors.</li>
+  <li><strong>Map:</strong> A simple UI allows the client to map their data fields to Orma’s canonical data model (e.g., <code class="language-plaintext highlighter-rouge">product_title</code> -&gt; <code class="language-plaintext highlighter-rouge">ProductName</code>).</li>
+  <li><strong>Ingest &amp; Graph-ify:</strong> Orma performs an initial bulk read, populating <strong>Neo4j</strong> with the structured entities and relationships, and <strong>Supabase/pgvector</strong> with text-heavy fields for semantic search.</li>
+  <li><strong>Synchronize:</strong> Data is kept live and fresh via real-time webhooks, Change Data Capture (CDC), or periodic polling.</li>
+</ol>
+
+<h4 id="42-document-processing-pipeline-for-unstructured-data"><strong>4.2 Document Processing Pipeline (For Unstructured Data)</strong></h4>
+
+<p>This pipeline ingests knowledge from sources like PDFs, documents, or websites.</p>
+
+<ol>
+  <li><strong>Upload / Connect:</strong> Clients can directly upload files or connect to sources like Google Drive or Confluence.</li>
+  <li><strong>Extract &amp; Chunk:</strong> The pipeline extracts raw text and intelligently breaks it into smaller, semantically complete chunks.</li>
+  <li><strong>Embed &amp; Store:</strong> Each chunk is converted into a vector embedding and stored in <strong>Supabase/pgvector</strong>, with metadata linking it back to the source document.</li>
+  <li><strong>Extract &amp; Link (Advanced):</strong> A background LLM process can extract key entities from each chunk and link them to the main <strong>Neo4j</strong> knowledge graph, creating a rich, interconnected web of structured and unstructured knowledge.</li>
+</ol>
+
+<h3 id="5-the-developer-experience-the-orma-sdk"><strong>5. The Developer Experience: The Orma SDK</strong></h3>
+
+<p>The entire complexity of the Orma architecture is abstracted away behind a clean, simple Software Development Kit (SDK). A developer only needs to interact with two components.</p>
+
+<h4 id="51-ormamemory-for-conversational-context"><strong>5.1 <code class="language-plaintext highlighter-rouge">OrmaMemory</code> (For Conversational Context)</strong></h4>
+
+<p>A LangChain-compatible memory class that automatically manages the saving and loading of conversational turns. It handles the short-term hot buffer (Redis) and the long-term transcript (Supabase) seamlessly.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Developer's Code
+</span><span class="kn">from</span> <span class="nn">my_memory_sdk</span> <span class="kn">import</span> <span class="n">OrmaMemory</span>
+
+<span class="c1"># Initialize with a session ID
+</span><span class="n">memory</span> <span class="o">=</span> <span class="n">OrmaMemory</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="s">"user_alex_123"</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s">"pk_..."</span><span class="p">)</span>
+
+<span class="c1"># Plug it directly into a LangChain agent or chain
+# Orma handles the rest automatically.
+</span><span class="n">agent_executor</span> <span class="o">=</span> <span class="n">AgentExecutor</span><span class="p">(...,</span> <span class="n">memory</span><span class="o">=</span><span class="n">memory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="52-ormaknowledgeclient-for-empowering-tools"><strong>5.2 <code class="language-plaintext highlighter-rouge">OrmaKnowledgeClient</code> (For Empowering Tools)</strong></h4>
+
+<p>A simple client for querying the entire unified knowledge base. This is the core of making the developer’s tools intelligent.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Developer's Code
+</span><span class="kn">from</span> <span class="nn">my_memory_sdk</span> <span class="kn">import</span> <span class="n">OrmaKnowledgeClient</span>
+
+<span class="n">knowledge_client</span> <span class="o">=</span> <span class="n">OrmaKnowledgeClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"pk_..."</span><span class="p">)</span>
+
+<span class="c1"># Query the knowledge core from within a custom tool
+</span><span class="n">context</span> <span class="o">=</span> <span class="n">knowledge_client</span><span class="p">.</span><span class="n">query</span><span class="p">(</span>
+ <span class="n">session_id</span><span class="o">=</span><span class="s">"user_alex_123"</span><span class="p">,</span>
+ <span class="n">query_text</span><span class="o">=</span><span class="s">"the headphones I bought last week"</span><span class="p">,</span>
+ <span class="n">query_mode</span><span class="o">=</span><span class="s">"hybrid"</span> <span class="c1"># Use full Redis + Postgres + Neo4j power
+</span><span class="p">)</span>
+
+<span class="c1"># context is a rich JSON object with entities, summaries, and related docs.
+</span></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">.query()</code> method returns a structured JSON object, providing the developer’s tool with a synthesized understanding of the user’s request, ready for action.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">//</span><span class="w"> </span><span class="err">Sample</span><span class="w"> </span><span class="err">response</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">knowledge_client.query()</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The user is asking about order #AX45-B7, which contains 'Aura Pro' headphones."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"entities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OrderID"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AX45-B7"</span><span class="p">,</span><span class="w"> </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Neo4j"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aura Pro"</span><span class="p">,</span><span class="w"> </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Neo4j"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"related_documents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"return_policy.pdf"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"chunk"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Items can be returned within 30 days of purchase..."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="6-workflow-in-action-a-complete-example"><strong>6. Workflow in Action: A Complete Example</strong></h3>
+
+<ol>
+  <li><strong>User Input:</strong> “Hi, I need to check the status of my last order.”</li>
+  <li><strong>Agent Logic:</strong> A LangChain agent receives the input and determines that the <code class="language-plaintext highlighter-rouge">get_order_status</code> tool (written by the developer) is required.</li>
+  <li><strong>Developer’s Tool Executes:</strong> The <code class="language-plaintext highlighter-rouge">get_order_status</code> tool is invoked.</li>
+  <li><strong>Tool Queries Orma:</strong> The tool’s first step is to call <code class="language-plaintext highlighter-rouge">knowledge_client.query(query_text="my last order")</code>.</li>
+  <li><strong>Orma Responds with Knowledge:</strong> Orma’s backend performs its multi-layered fetch. It uses the <code class="language-plaintext highlighter-rouge">session_id</code> to find Alex’s most recent order in the Neo4j graph and returns the structured JSON: <code class="language-plaintext highlighter-rouge">{"entities": [{"type": "OrderID", "value": "AX45-B7"}]}</code>.</li>
+  <li><strong>Tool Executes Business Logic:</strong> The tool extracts the <code class="language-plaintext highlighter-rouge">OrderID</code> and makes a secure call to the <strong>company’s private shipping API</strong> with that ID. Orma is not involved in this call.</li>
+  <li><strong>Tool Returns Result:</strong> The internal API returns “Shipped”. The tool passes this string back to the agent.</li>
+  <li><strong>Agent Responds to User:</strong> The agent forms a natural language response: “I’ve checked on your most recent order, #AX45-B7. It has been shipped and is on its way!”</li>
+  <li><strong>OrmaMemory Saves Turn:</strong> In the background, the <code class="language-plaintext highlighter-rouge">OrmaMemory</code> object saves the entire interaction to the persistent logs in Supabase, and the Active Learning Framework analyzes the turn for salience and feedback.</li>
+</ol>
+
+<p>This workflow is fast, secure, and incredibly intelligent, leveraging the best of both worlds: Orma’s deep, self-improving knowledge and the developer’s specific business logic.</p>
+
+<hr />
+
+<p><em>This blueprint represents the current state of the Orma project. For the latest updates and implementation details, please refer to the official documentation and repositories.</em></p>
+:ET

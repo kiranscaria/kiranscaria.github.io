@@ -1,3 +1,4 @@
-<span class="reading-time" title="Estimated read time">
-  {% assign words = include.content | number_of_words %}
-  {% if words < 270 %} 1 min {% else %} {{ words | divided_by:135 }} mins {% endif %} read </span>
+{% assign words = include.content | number_of_words %}
+{% assign mins = words | plus: 219 | divided_by: 220 %}
+{% if mins < 1 %}{% assign mins = 1 %}{% endif %}
+<span class="reading-time">{{ mins }} min read</span>

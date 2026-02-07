@@ -66,6 +66,7 @@ GEM
     webrick (1.7.0)
 
 PLATFORMS
+  arm64-darwin-25
   universal-darwin-20
   universal-darwin-22
   x86_64-linux
@@ -77,6 +78,9 @@ DEPENDENCIES
   jekyll-sitemap
   tzinfo-data
   webrick (~> 1.7)
+
+RUBY VERSION
+   ruby 3.2.10p266
 
 BUNDLED WITH
    2.2.20

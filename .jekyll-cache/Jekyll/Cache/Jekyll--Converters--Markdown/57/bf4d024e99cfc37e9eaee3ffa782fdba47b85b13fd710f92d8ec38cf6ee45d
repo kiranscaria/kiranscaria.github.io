@@ -1,0 +1,27 @@
+I"$<p>I am <strong>Kiran Scaria</strong>, a Principal AI Engineer focused on building dependable AI systems that ship and hold up in production.</p>
+
+<p>Most of my work sits at the intersection of agent frameworks, memory systems, observability, and evaluation. I use this blog as an engineering journal: what worked, what failed, and what I would improve next.</p>
+
+<p>If you are new here, start with the <a href="/posts/">latest posts</a> for current implementation notes.</p>
+
+<h2 id="selected-open-source-work">Selected Open Source Work</h2>
+
+<ul>
+  <li><a href="https://github.com/raga-ai-hub/raga-llm-hub">Raga LLM Hub</a>: Evaluation tooling for LLM pipelines.</li>
+  <li><a href="https://github.com/raga-ai-hub/AgentNeo">AgentNeo</a>: Python SDK for tracing, debugging, and observing agentic systems.</li>
+  <li><a href="https://github.com/raga-ai-hub/RagaAI-Catalyst">RagaAI Catalyst</a>: Hosted observability and evaluation workflows for production AI applications.</li>
+</ul>
+
+<h2 id="what-you-will-find-here">What You Will Find Here</h2>
+
+<ul>
+  <li>practical deep dives on agent architecture and memory patterns</li>
+  <li>implementation notes on LLM infrastructure and reliability</li>
+  <li>project retrospectives from systems built in the open</li>
+  <li>tooling and workflows that improve engineering feedback loops</li>
+</ul>
+
+<p>Outside software, I spend time with photography. You can see that work on <a href="https://kiransphotographyblog.wordpress.com">my photo blog</a>.</p>
+
+<p>If this writing is useful, connect through the links in the footer.</p>
+:ET

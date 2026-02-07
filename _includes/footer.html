@@ -1,65 +1,30 @@
-<!-- Footer -->
-
-<hr>
-
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <ul class="list-inline text-center">
-          {% if site.email %}
-          <li class="list-inline-item">
-            <a href="mailto:{{ site.email | encode_email }}">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.twitter_username %}
-          <li class="list-inline-item">
-            <a href="https://twitter.com/{{ site.twitter_username }}">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.facebook_username %}
-          <li class="list-inline-item">
-            <a href="https://www.facebook.com/{{ site.facebook_username }}">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.linkedin_username %}
-          <li class="list-inline-item">
-            <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.github_username %}
-          <li class="list-inline-item">
-            <a href="https://github.com/{{ site.github_username }}">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-        <p class="copyright text-muted">Copyright &copy; {{ site.author }} {{ 'now' | date: "%Y" }}</p>
+<footer class="site-footer">
+  <div class="shell footer-shell">
+    <div class="footer-main">
+      <div class="footer-copy-block">
+        <p class="footer-kicker">Keep Reading</p>
+        <p class="footer-copy">Practical notes on production AI systems, agent workflows, and engineering reliability.</p>
       </div>
+
+      <div class="footer-links" aria-label="Social links">
+        {% if site.github_username %}
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
+        {% endif %}
+        {% if site.linkedin_username %}
+          <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener">LinkedIn</a>
+        {% endif %}
+        {% if site.twitter_username %}
+          <a href="https://x.com/{{ site.twitter_username }}" target="_blank" rel="noopener">X</a>
+        {% endif %}
+        {% if site.email %}
+          <a href="mailto:{{ site.email | encode_email }}">Email</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer-lower">
+      <a class="footer-archive-link" href="{{ '/posts' | relative_url }}">Browse all writing</a>
+      <p class="footer-legal">© {{ 'now' | date: '%Y' }} {{ site.author }}. Built with Jekyll and GitHub Pages.</p>
     </div>
   </div>
 </footer>

@@ -1,65 +1,114 @@
 ---
 layout: default
 ---
+{% assign reading_progress_enabled = site.features.reading_progress | default: true %}
+{% if reading_progress_enabled %}
+<div class="reading-progress" data-reading-progress role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <span class="reading-progress-bar" data-reading-progress-bar></span>
+</div>
+{% endif %}
 
-<!-- Page Header -->
-{% if page.background %}
-<header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
-  {% else %}
-  <header class="masthead">
-    {% endif %}
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="post-heading">
-            <h1>{{ page.title }}</h1>
-            {% if page.subtitle %}
-            <h2 class="subheading">{{ page.subtitle }}</h2>
-            {% endif %}
-            <span class="meta">Posted by
-              <a href="#">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
-              on {{ page.date | date: '%B %d, %Y' }} &middot; {% include read_time.html
-              content=page.content %}
-            </span>
-          </div>
-        </div>
+<article class="post-page">
+  <header class="post-hero{% if page.background %} has-image{% endif %}"{% if page.background %} style="--hero-image: url('{{ page.background | relative_url }}');"{% endif %}>
+    <div class="shell reveal" data-reveal>
+      <a class="back-link" href="{{ '/posts' | relative_url }}">← Back to archive</a>
+      <p class="eyebrow">{{ page.categories | first | default: 'Article' }}</p>
+      <h1>{{ page.title }}</h1>
+      {% if page.subtitle %}
+        <p class="lead">{{ page.subtitle }}</p>
+      {% endif %}
+      <p class="post-hero-meta">
+        <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+        <span>•</span>
+        {% include read_time.html content=page.content %}
+        <span>•</span>
+        <span>{{ page.author | default: site.author }}</span>
+      </p>
+
+      {% if page.tags %}
+      <div class="post-tags" aria-label="Post tags">
+        {% for tag in page.tags %}
+          <span class="pill">#{{ tag }}</span>
+        {% endfor %}
       </div>
+      {% endif %}
     </div>
   </header>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
+  <section class="post-content-wrap">
+    <div class="shell post-layout-grid">
+      <aside class="post-toc" data-post-toc-wrap>
+        <p class="post-toc-title">On this page</p>
+        <nav data-post-toc aria-label="Table of contents"></nav>
+      </aside>
 
-        {{ content }}
+      <div class="post-main-column">
+        <div class="post-content prose" data-post-content>
+          {{ content }}
+        </div>
 
-        <hr>
+        {% if page.comments %}
+          <div class="comments-block">
+            {% include discus.html %}
+          </div>
+        {% endif %}
 
-        <div class="clearfix">
-
+        <nav class="post-pagination" aria-label="Post navigation">
           {% if page.previous.url %}
-          <a class="btn btn-primary float-left" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.previous.title }}">&larr; Previous<span class="d-none d-md-inline">
-              Post</span></a>
+            <a class="post-pagination-link" href="{{ page.previous.url | relative_url }}">
+              <small>Previous</small>
+              <span>{{ page.previous.title }}</span>
+            </a>
           {% endif %}
           {% if page.next.url %}
-          <a class="btn btn-primary float-right" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">Next<span class="d-none d-md-inline">
-              Post</span> &rarr;</a>
+            <a class="post-pagination-link" href="{{ page.next.url | relative_url }}">
+              <small>Next</small>
+              <span>{{ page.next.title }}</span>
+            </a>
           {% endif %}
-
-        </div>
+        </nav>
       </div>
     </div>
-  </div>
+  </section>
+</article>
 
-  <hr>
+<section class="home-section home-section-muted related-section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <p class="section-label">Continue Reading</p>
+        <h2>Related posts</h2>
+      </div>
+    </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        {% if page.comments %}
-          {% include discus.html %}
+    <div class="post-grid">
+      {% assign related_count = 0 %}
+      {% for post in site.posts %}
+        {% if post.url != page.url %}
+          {% assign has_shared_category = false %}
+          {% for category in page.categories %}
+            {% if post.categories contains category %}
+              {% assign has_shared_category = true %}
+            {% endif %}
+          {% endfor %}
+          {% if has_shared_category %}
+            {% include post-card.html post=post excerpt_words=18 %}
+            {% assign related_count = related_count | plus: 1 %}
+            {% if related_count == 3 %}{% break %}{% endif %}
+          {% endif %}
         {% endif %}
-      </div>
+      {% endfor %}
+
+      {% if related_count == 0 %}
+        {% assign fallback_count = 0 %}
+        {% for post in site.posts %}
+          {% if post.url != page.url %}
+            {% include post-card.html post=post excerpt_words=18 %}
+            {% assign fallback_count = fallback_count | plus: 1 %}
+            {% if fallback_count == 3 %}{% break %}{% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
+</section>

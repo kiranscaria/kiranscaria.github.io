@@ -1,67 +1,115 @@
 ---
 layout: default
 ---
+{% assign recent_posts_count = site.home.recent_posts_count | default: 6 %}
+{% assign featured_source = site.home.featured_source | default: 'latest' %}
+{% assign featured_post = nil %}
 
-<!-- Page Header -->
-{% if page.background %}
-<header class="masthead"
-  style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
-  {% else %}
-  <header class="masthead">
+{% if featured_source == 'featured' %}
+  {% for post in site.posts %}
+    {% if post.feature %}
+      {% assign featured_post = post %}
+      {% break %}
     {% endif %}
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
-            <h1>{{ site.title }}</h1>
-            {% if site.description %}
-            <span class="subheading">{{ site.description }}</span>
-            {% endif %}
-          </div>
+  {% endfor %}
+{% endif %}
+
+{% if featured_post == nil %}
+  {% assign featured_post = site.posts.first %}
+{% endif %}
+
+<section class="home-hero">
+  <div class="shell hero-grid">
+    <div class="hero-copy reveal" data-reveal>
+      <p class="eyebrow">Editorial Notes</p>
+      <h1 class="hero-title">Production AI engineering, documented with implementation detail.</h1>
+      <p class="hero-description">A reader-first archive of practical patterns, failure modes, and tested workflows for building reliable agentic systems.</p>
+      <div class="hero-topics" aria-label="Topic highlights">
+        <span>Agent Workflows</span>
+        <span>LLM Evaluation</span>
+        <span>Memory Systems</span>
+        <span>Production AI</span>
+      </div>
+
+      <div class="hero-actions">
+        <a class="button button-primary" href="#latest-writing">Read latest writing</a>
+        <a class="hero-inline-link" href="{{ '/posts' | relative_url }}">Browse full archive</a>
+      </div>
+
+      <div class="hero-stats" aria-label="Site statistics">
+        <div>
+          <span>{{ site.posts.size }}</span>
+          <small>published notes</small>
+        </div>
+        <div>
+          <span>{{ site.categories.size }}</span>
+          <small>focus streams</small>
+        </div>
+        <div>
+          <span>{{ site.time | date: '%Y' }}</span>
+          <small>actively writing</small>
         </div>
       </div>
     </div>
-  </header>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-
-        {{ content }}
-
-        <!-- Home Post List -->
-        {% for post in site.posts limit : 5 %}
-
-        <article class="post-preview">
-          <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
-            <h2 class="post-title">{{ post.title }}</h2>
-            {% if post.subtitle %}
-            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
-            {% else %}
-            <h3 class="post-subtitle">{{ post.excerpt | strip_html | truncatewords: 15 }}</h3>
-            {% endif %}
-          </a>
-          <p class="post-meta">Posted by
-            {% if post.author %}
-            {{ post.author }}
-            {% else %}
-            {{ site.author }}
-            {% endif %}
-            on
-            {{ post.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=post.content %}
-          </p>
-        </article>
-
-        <hr>
-
-        {% endfor %}
-
-        <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="{{" /posts" | relative_url }}">View All Posts &rarr;</a>
-        </div>
-
+    {% if featured_post %}
+    <div class="hero-feature reveal" data-reveal>
+      <p class="section-label">Latest Feature</p>
+      <div class="hero-feature-frame">
+        {% include post-card.html post=featured_post excerpt_words=20 %}
       </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section id="latest-writing" class="home-section section-latest section-divider">
+  <div class="shell section-panel">
+    <div class="section-head">
+      <div>
+        <p class="section-label">Latest Writing</p>
+        <h2>Recent posts</h2>
+      </div>
+      <a class="section-link" href="{{ '/posts' | relative_url }}">Browse all posts</a>
+    </div>
+
+    <div class="post-grid">
+      {% for post in site.posts limit: recent_posts_count %}
+        {% include post-card.html post=post %}
+      {% endfor %}
     </div>
   </div>
+</section>
+
+{% if site.categories.size > 0 %}
+<section class="home-section home-section-muted section-divider">
+  <div class="shell section-panel section-panel-muted">
+    <div class="section-head">
+      <div>
+        <p class="section-label">Topic Streams</p>
+        <h2>Browse by category</h2>
+      </div>
+    </div>
+
+    <div class="category-cloud" aria-label="Categories">
+      {% assign category_list = site.categories | sort %}
+      {% for category in category_list %}
+        <span class="category-chip">
+          {{ category[0] }}
+          <small>{{ category[1].size }}</small>
+        </span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% unless content == '' %}
+<section class="home-section">
+  <div class="shell section-panel section-panel-prose">
+    <div class="prose">
+      {{ content }}
+    </div>
+  </div>
+</section>
+{% endunless %}

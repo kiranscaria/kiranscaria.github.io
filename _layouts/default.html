@@ -1,21 +1,21 @@
 <!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+  {% include head.html %}
+  <body
+    class="layout-{{ page.layout | default: 'default' }}{% if page.url == '/' %} is-home{% endif %}"
+    data-feature-reading-progress="{{ site.features.reading_progress | default: true }}"
+    data-feature-code-copy="{{ site.features.code_copy | default: true }}"
+  >
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
-<html>
+    {% include navbar.html %}
 
-{% include head.html %}
+    <main id="main-content">
+      {{ content }}
+    </main>
 
-<body>
-
-  {% include navbar.html %}
-
-  {{ content }}
-
-  {% include footer.html %}
-
-  {% include scripts.html %}
-
-  {% include google-analytics.html %}
-
-</body>
-
+    {% include footer.html %}
+    {% include scripts.html %}
+    {% include google-analytics.html %}
+  </body>
 </html>

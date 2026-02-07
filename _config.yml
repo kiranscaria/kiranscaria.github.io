@@ -1,37 +1,48 @@
-title:              My Blog
-email:              kiranscaria@outlook.com
-description:        The one stop for all things I want to share.
-author:             Kiran Scaria
-baseurl:            ""
-url:                "https://kiranscaria.github.io"
+title: Kiran Scaria
+email: kiranscaria@outlook.com
+author: Kiran Scaria
+tagline: Principal AI Engineer
+description: Editorial notes on practical AI engineering, autonomous systems, and production-grade agent workflows.
+lang: en
+timezone: Asia/Kolkata
+baseurl: ""
+url: "https://kiranscaria.github.io"
+default_og_image: "/assets/images/bg-index.jpg"
+
+features:
+  reading_progress: true
+  code_copy: true
+  mermaid: true
+  math: false
+
+home:
+  recent_posts_count: 6
+  featured_source: "latest"
 
 # Social Profiles
-twitter_username:   kiranscaria
-github_username:    kiranscaria
-linkedin_username:  kiran-scaria-689053166
+twitter_username: kiranscaria
+github_username: kiranscaria
+linkedin_username: kiran-scaria-689053166
 
-# Add your google-analytics ID here to activate google analytics
-google_analytics:   UA-145160640-1 # out your google-analytics code
+# Add your google-analytics ID here to activate analytics
+google_analytics: UA-145160640-1
 
 # Build settings
-markdown:           kramdown
-highlighter:        rouge
+markdown: kramdown
+highlighter: rouge
 kramdown:
-  input: GFM # Github Flavored Markdown
-  hard-wrap: false
+  input: GFM
+  hard_wrap: false
   syntax_highlighter: rouge
-  #  syntax_highlighter_opts:
-  # default_lang: html
-  # css_class: 'highlight'
-  # span:
-  #   line_numbers: false
-  # block:
-  #   line_numbers: true
-  #   start_line: 1
 permalink: /:title
-paginate:           5
-paginate_path:      "/posts/page:num/"
+paginate: 8
+paginate_path: "/posts/page:num/"
 plugins:
   - jekyll-feed
   - jekyll-paginate
-  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+  - jekyll-sitemap
+
+exclude:
+  - node_modules
+  - vendor
+  - README.md

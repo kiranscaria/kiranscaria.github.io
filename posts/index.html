@@ -1,49 +1,66 @@
 ---
 layout: page
-title: Posts
-background: '/assets/images/bg-post.jpg'
-comments: true
+title: Post Archive
+description: Search and explore everything I have published so far.
+wide: true
+eyebrow: Archive
 ---
+{% assign posts_collection = paginator.posts | default: site.posts %}
+{% assign category_list = site.categories | sort %}
 
-{% for post in paginator.posts %}
+<section class="archive-controls reveal" data-reveal>
+  <div class="archive-controls-shell">
+    <label class="search-label" for="post-search">Search posts</label>
+    <input id="post-search" type="search" placeholder="Filter by title, subtitle, or excerpt" autocomplete="off" data-post-search>
+    <p class="search-result-count" data-search-result-count>{{ posts_collection | size }} posts on this page</p>
+  </div>
 
-<article class="post-preview">
-  <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
-    <h2 class="post-title">{{ post.title }}</h2>
-    {% if post.subtitle %}
-    <h3 class="post-subtitle">{{ post.subtitle }}</h3>
-    {% else %}
-    <h3 class="post-subtitle">{{ post.excerpt | strip_html | truncatewords: 15 }}</h3>
-    {% endif %}
-  </a>
-  <p class="post-meta">Posted by
-    {% if post.author %}
-    {{ post.author }}
-    {% else %}
-    {{ site.author }}
-    {% endif %}
-    on {{ post.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=post.content %}
-  </p>
-</article>
-
-<hr>
-
-{% endfor %}
-
-<!-- Pager -->
-{% if paginator.total_pages > 1 %}
-
-<div class="clearfix">
-
-  {% if paginator.previous_page %}
-  <a class="btn btn-primary float-left" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr;
-    Newer<span class="d-none d-md-inline"> Posts</span></a>
+  {% if category_list.size > 0 %}
+  <div class="archive-category-filters" role="group" aria-label="Filter posts by category" data-category-filters>
+    <button class="category-filter is-active" type="button" data-filter-button data-filter-value="all" aria-pressed="true">All</button>
+    {% for category in category_list %}
+      <button class="category-filter" type="button" data-filter-button data-filter-value="{{ category[0] | slugify }}" aria-pressed="false">{{ category[0] }}</button>
+    {% endfor %}
+  </div>
   {% endif %}
+</section>
+
+<section>
+  <div class="section-panel">
+    <div class="post-grid post-grid-archive" data-search-grid>
+      {% for post in posts_collection %}
+        {% include post-card.html post=post %}
+      {% endfor %}
+    </div>
+  </div>
+  <p class="search-empty" data-search-empty hidden>No posts match the current search and category filter.</p>
+</section>
+
+{% if paginator and paginator.total_pages > 1 %}
+<nav class="pagination" aria-label="Archive pagination">
+  {% if paginator.previous_page %}
+    <a class="page-button" href="{{ paginator.previous_page_path | relative_url }}">← Newer</a>
+  {% else %}
+    <span class="page-button is-disabled">← Newer</span>
+  {% endif %}
+
+  <div class="pagination-pages">
+    {% for page_number in (1..paginator.total_pages) %}
+      {% if page_number == paginator.page %}
+        <span class="page-number is-current">{{ page_number }}</span>
+      {% elsif page_number == 1 %}
+        <a class="page-number" href="{{ '/posts/' | relative_url }}">{{ page_number }}</a>
+      {% else %}
+        {% assign page_path = site.paginate_path | replace: ':num', page_number %}
+        <a class="page-number" href="{{ page_path | relative_url }}">{{ page_number }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
 
   {% if paginator.next_page %}
-  <a class="btn btn-primary float-right" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older<span class="d-none d-md-inline"> Posts</span> &rarr;</a>
+    <a class="page-button" href="{{ paginator.next_page_path | relative_url }}">Older →</a>
+  {% else %}
+    <span class="page-button is-disabled">Older →</span>
   {% endif %}
-
-</div>
-
+</nav>
 {% endif %}
