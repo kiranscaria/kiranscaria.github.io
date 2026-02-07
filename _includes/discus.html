@@ -10,9 +10,52 @@
     (function() {
       var d = document;
       var s = d.createElement('script');
+      s.id = 'disqus-embed-script';
       s.src = 'https://kiranscaria.disqus.com/embed.js';
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
+    })();
+
+    (function() {
+      var remountTimer = null;
+
+      var remountDisqus = function () {
+        var thread = document.getElementById('disqus_thread');
+        if (!thread) {
+          return;
+        }
+
+        var existingScript = document.getElementById('disqus-embed-script');
+        if (existingScript) {
+          existingScript.remove();
+        }
+
+        thread.innerHTML = '';
+
+        try {
+          delete window.DISQUS;
+        } catch (_error) {
+          window.DISQUS = undefined;
+        }
+
+        var d = document;
+        var s = d.createElement('script');
+        s.id = 'disqus-embed-script';
+        s.src = 'https://kiranscaria.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      };
+
+      document.addEventListener('site-theme-changed', function () {
+        if (remountTimer) {
+          window.clearTimeout(remountTimer);
+        }
+
+        remountTimer = window.setTimeout(function () {
+          remountDisqus();
+          remountTimer = null;
+        }, 120);
+      });
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
