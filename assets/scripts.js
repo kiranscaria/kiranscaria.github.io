@@ -258,6 +258,7 @@
     const tocContainer = document.querySelector('[data-post-toc]');
     const tocWrap = document.querySelector('[data-post-toc-wrap]');
     const postContent = document.querySelector('[data-post-content]');
+    const layoutGrid = document.querySelector('.post-layout-grid');
 
     if (!tocContainer || !tocWrap || !postContent) {
       return;
@@ -266,7 +267,14 @@
     const headings = Array.from(postContent.querySelectorAll('h2, h3'));
     if (headings.length === 0) {
       tocWrap.classList.add('is-hidden');
+      if (layoutGrid) {
+        layoutGrid.classList.add('no-toc');
+      }
       return;
+    }
+
+    if (layoutGrid) {
+      layoutGrid.classList.remove('no-toc');
     }
 
     const slugify = (text) =>

@@ -928,6 +928,10 @@ main :where(a, button, input, textarea, select):focus-visible {
   align-items: start;
 }
 
+.post-layout-grid.no-toc {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .post-toc {
   position: sticky;
   top: calc(var(--header-height-scrolled) + 14px);
